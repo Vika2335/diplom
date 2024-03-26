@@ -1,0 +1,47 @@
+#footer {
+  background: rgb(105,113,159);
+  background: linear-gradient(0deg, rgba(105,113,159,1) 0%, rgba(71,64,79,1) 100%);
+}
+
+.footer__contacts-title, 
+.footer__locations-title{
+  color: white;
+  font-size: 35px;
+  margin-left: 40px;
+  text-align: start;
+  width: 70%;
+}
+
+.footer__contacts-mail, 
+.footer__contacts-phone, 
+.footer__locations-boston{
+  color: #dbbaa2ff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.footer__contacts-title {
+  padding-bottom: 15px;
+}
+
+.content {
+  display: flex;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mail, 
+.phone, 
+.boston {
+  padding-left: 20px;
+}
+
+.footer__locations-title {
+  margin-bottom: 10px;
+}
