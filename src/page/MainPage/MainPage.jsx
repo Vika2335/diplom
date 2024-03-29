@@ -1,19 +1,30 @@
 import React from 'react'
 import './MainPage.css'
+import { posts } from '../../utils/post'
+import { Link } from 'react-router-dom'
 
 function MainPage() {
+  const contentPosts = posts.map((item) => {
+    return(
+      <div className='post' key={item.id}>
+        <Link to={`/post/${item.id}`}>
+          <button className='post__button'>
+            <h2 className='title'>{item.name}</h2>
+          </button>
+        </Link>
+      </div>
+    )
+  })
+
   return (
     <>
       <main>
         <section>
           <div className="container">
-            <div className="main">
-              <div className='main-content'>
-                <div className='post'><button className='main__button'>Знакомство</button></div>
-                <div className='post'><button className='main__button'>2</button></div>
-                <div className='post'><button className='main__button'>3</button></div>
-                <div className='post'><button className='main__button'>4</button></div>
-                <div className='post'><button className='main__button'>5</button></div>
+            <div className="post-content">
+              <h1 className='posts__heading'>Blog</h1>
+              <div className='posts'>
+                {contentPosts}
               </div>
             </div>
           </div>

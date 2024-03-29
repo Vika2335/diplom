@@ -1,0 +1,35 @@
+.authorization__heading {
+  display: flex;
+  justify-content: center;
+  font-size: 36px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 5px;
+}
+
+.input {
+  font-size: 18px;
+}
+
+.input-text {
+  width: 250px;
+  height: 20px;
+}
+
+.login {
+  width: 90px;
+  height: 50px;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 40px;
+  border: 2px solid #5D6084;
+  font-size: 18px;
+}
+
+.authorization__button {
+  margin-bottom: 20px;
+}

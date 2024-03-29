@@ -1,22 +1,21 @@
 import React from 'react'
 import './Header.css'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function Header() {
+  const location = useLocation();
 
   return (
     <>
-      <header className="header">
+      <header className={ `header ${ location.pathname === '/' ? 'header-main' : 'header-autorization' }` }>
         <div className='container'>
           <Link className="logo" to="/">
-            <p className="logo__heading">ForuM</p>
+            <p className="logo__heading">BookWeekdays</p>
           </Link>
           <div className="wrapper-menu">
-            <nav className="menu">
+            <nav className={ `menu ${ location.pathname === '/' ? 'menu-main' : 'menu-autorization' }` }>
               <ul className="menu-list">
-                <li><Link to="/">Главная</Link></li>
-                <li><a href="#footer">Contacts</a></li>
-                <li><Link to="/authorization"><button className="authorization">Авторизация</button></Link></li>
+                <li><button className="authorization"><Link to="/authorization">Авторизация</Link></button></li>
               </ul>
             </nav>
           </div>
