@@ -9,11 +9,11 @@ const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
 
 function Authorization() {
   const [formdata, setformdata] = useState({
-    email:'',
-    password:'',
+    email: '',
+    password: '',
   })
     
-  const {email, password} = formdata;
+  const { email, password } = formdata;
     
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +34,7 @@ function Authorization() {
         <div className="authorization-page">
           <div className="authorization__content">
             <h1 className="authorization__heading">Авторизация</h1>
-            <form className='form' onSubmit={submit}>
+            <form className='authorization__form' onSubmit={submit}>
               <label className='label'>Email:</label>
               <input className='email' type="email" value={email} placeholder="Email" name="email" onChange={change}/>
               <label className='label'>Password:</label>
@@ -42,10 +42,10 @@ function Authorization() {
                 <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Password" value={password} name="password" onChange={change}/>
                 {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
               </div>
+              <div className='authorization__button'>
+                <input className="submit" type = "submit" name="submit"></input>
+              </div>
             </form>
-            <div className='authorization__button'>
-              <input className="submit" type = "submit" name="submit"></input>
-            </div>
             <p><Link to="/registration">Зарегистрироваться</Link></p>
           </div>
         </div>

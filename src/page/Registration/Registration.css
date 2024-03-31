@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 214.5px 0;
+  margin: 218.5px 0;
 }
 
 .registration__heading {
@@ -15,29 +15,39 @@
 .form {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  gap: 5px;
+  padding-top: 20px;
+  gap: 7px;
 }
 
-.input {
+.label {
   font-size: 18px;
 }
 
-.input-text {
-  width: 250px;
+.password__input, 
+.email,
+.name {
+  width: 260px;
   height: 20px;
 }
 
-.register {
-  width: 90px;
-  height: 50px;
-  cursor: pointer;
-  background-color: transparent;
-  border-radius: 40px;
-  border: 2px solid #5D6084;
-  font-size: 18px;
+.registration__button {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
 }
 
-.registration__button {
-  margin-bottom: 20px;
+.password,
+.repeat__password {
+  position: relative;
+  display: flex;
+}
+
+i {
+  position: absolute;
+  top: 20%;
+  right: 2%;
+}
+
+i:hover {
+  cursor: pointer;
 }
