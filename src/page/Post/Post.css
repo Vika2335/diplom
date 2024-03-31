@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  padding-bottom: 40px;
+  margin-top: 50px;
   gap: 50px;
   flex-direction: column;
 }

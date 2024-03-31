@@ -21,7 +21,7 @@ function MainPage() {
       <main>
         <section>
           <div className="container">
-            <div className="post-content">
+            <div className="main__post-content">
               <h1 className='posts__heading'>Blog</h1>
               <div className='posts'>
                 {contentPosts}
