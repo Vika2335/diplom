@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './Registration.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,11 +14,14 @@ function Registration() {
     password: '',
     repeatPassword: '',
   })
-    
+  
+  const navigate = useNavigate();
+
   const { name, email, password, repeatPassword } = formdata;
 
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
   const change = (e) => {
     setformdata({...formdata,[e.target.name]:e.target.value});
@@ -28,7 +31,13 @@ function Registration() {
     e.preventDefault();
     setformdata({ name: '', email: '', password: '', repeatPassword: '' });
     setshow(false);
+    navigate('/authorization');
+    setRegistered(true);
   } 
+
+  if (registered) {
+    return <Redirect to="/authorization" />;
+  }
 
   return(
     <>
