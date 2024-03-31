@@ -1,9 +1,9 @@
-.content {
+.registration__content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 158px 0;
+  margin: 214.5px 0;
 }
 
 .registration__heading {

@@ -7,7 +7,7 @@ function Registration() {
         <>
           <section>
             <div className="registration">
-              <div className="content">
+              <div className="registration__content">
                 <h1 className="registration__heading">Регистрация</h1>
                 <div className='form'>
                   <label className='input' htmlFor="img">Name:</label>
@@ -24,7 +24,7 @@ function Registration() {
                   <div className='button-register'><button className='register'>Register</button></div>
                 </div>
 
-                <p><Link to="/autorization">Авторизоваться</Link></p>
+                <p><Link to="/authorization">Авторизоваться</Link></p>
               </div>
             </div>
           </section>

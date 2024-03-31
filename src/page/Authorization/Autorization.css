@@ -1,3 +1,11 @@
+.authorization__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 267px 0;
+}
+
 .authorization__heading {
   display: flex;
   justify-content: center;
@@ -11,17 +19,18 @@
   gap: 5px;
 }
 
-.input {
+.label {
   font-size: 18px;
 }
 
-.input-text {
-  width: 250px;
+.password__input, 
+.email {
+  width: 260px;
   height: 20px;
 }
 
-.login {
-  width: 90px;
+.submit {
+  width: 150px;
   height: 50px;
   cursor: pointer;
   background-color: transparent;
@@ -32,4 +41,20 @@
 
 .authorization__button {
   margin-bottom: 20px;
+}
+
+.password {
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+
+i {
+  position: absolute;
+  top: 20%;
+  right: 2%;
+}
+
+i:hover {
+  cursor: pointer;
 }
