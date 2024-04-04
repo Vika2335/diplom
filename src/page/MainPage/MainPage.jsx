@@ -1,20 +1,24 @@
 import React from 'react'
 import './MainPage.css'
-import { posts } from '../../utils/post'
+import { useGetPostsQuery } from '../../redux/postsApi'
 import { Link } from 'react-router-dom'
 
 function MainPage() {
+  const { data: posts, isLoading } = useGetPostsQuery();
+  
+  if (isLoading) return <h1>Loading...</h1>
+
   const contentPosts = posts.map((item) => {
     return(
-      <div className='post' key={item.id}>
-        <Link to={`/post/${item.id}`}>
+      <div className='post' key={item._id}>
+        <Link to={`/post/${item._id}`}>
           <button className='post__button'>
-            <h2 className='title'>{item.name}</h2>
+            <h2 className='title'>{item.header}</h2>
           </button>
         </Link>
       </div>
     )
-  })
+  }) 
 
   return (
     <>

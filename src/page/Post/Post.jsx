@@ -1,13 +1,13 @@
 import React from 'react'
 import './Post.css'
-import { posts } from '../../utils/post'
 import { useParams } from 'react-router-dom';
+import { useGetOnePostQuery } from '../../redux/postsApi';
 
-function Post(props) {
+function Post() {
   const { id } = useParams();
-  const postId = parseInt(id);
-  
-  const postData = posts.find(post => post.id === postId) || {};
+  const { data: post, isLoading } = useGetOnePostQuery(id);
+
+  if (isLoading) return <h1>Loading...</h1>
 
   return (
     <>
@@ -17,8 +17,8 @@ function Post(props) {
           <div className='posts'>
             <div className='post-content'>
               <div className='post__name'>
-                <h2 className='post__title'>{postData.name}</h2>
-                <p>{postData.description}</p>
+                <h2 className='post__title'>{post.header}</h2>
+                <p>{post.body}</p>
               </div>
             </div>
           </div>

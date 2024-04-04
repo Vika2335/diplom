@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAuthorizationQuery } from '../../redux/usersApi';
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
@@ -11,9 +12,12 @@ function Authorization() {
   const [formdata, setformdata] = useState({
     email: '',
     password: '',
-  })
+  });
+
     
   const { email, password } = formdata;
+  
+  const [ authUser, {isError} ] = useAuthorizationQuery({email, password});
     
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
