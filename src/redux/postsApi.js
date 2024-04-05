@@ -20,14 +20,22 @@ export const postsApi = createApi({
             query: (id) => `posts/${id}`
         }),
 
-        authorization: build.query({
-            query: (body) => ({
-                url: '/auth/login',
+        authorization: build.mutation({
+            query: ({ email, password }) => ({
+                url: '/auth/login', 
                 method: 'POST',
-                body,
+                body: { email, password },
+            }),
+        }),
+        
+        registration: build.mutation({
+            query: ({ email, password, username }) => ({
+                url: '/auth/registration', 
+                method: 'POST',
+                body: { email, password, username },
             })
-        })
+        }),
     })
 });
 
-export const { useGetPostsQuery, useGetOnePostQuery } = postsApi;
+export const { useGetPostsQuery, useGetOnePostQuery, useAuthorizationMutation, useRegistrationMutation } = postsApi;

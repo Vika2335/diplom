@@ -3,13 +3,14 @@ import './Registration.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRegistrationMutation } from '../../redux/postsApi'
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
 
 function Registration() {
   const [formdata, setformdata] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     repeatPassword: '',
@@ -17,7 +18,9 @@ function Registration() {
   
   const navigate = useNavigate();
 
-  const { name, email, password, repeatPassword } = formdata;
+  const { username, email, password, repeatPassword } = formdata;
+
+  const [ registration, { isLoading, isError } ] = useRegistrationMutation();
 
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -27,13 +30,18 @@ function Registration() {
     setformdata({...formdata,[e.target.name]:e.target.value});
   }
 
-  const submit = e =>{
+  const submit = async (e) => {
     e.preventDefault();
-    setformdata({ name: '', email: '', password: '', repeatPassword: '' });
-    setshow(false);
-    navigate('/authorization');
-    setRegistered(true);
-  } 
+    try {
+      await registration({  email, password, username });
+      setformdata({ username: '', email: '', password: '', repeatPassword: '' });
+      setshow(false);
+      navigate('/authorization');
+      setRegistered(true);
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error);
+    }
+  }; 
 
   if (registered) {
     return <Redirect to="/authorization" />;
@@ -47,7 +55,7 @@ function Registration() {
             <h1 className="registration__heading">Регистрация</h1>
             <form className='form' onSubmit={submit}>
               <label className='label'>Name:</label>
-              <input className='name' type="name" value={name} placeholder="Name" name="name" onChange={change}/>
+              <input className='name' type="name" value={username} placeholder="Name" name="username" onChange={change}/>
               <label className='label'>Email:</label>
               <input className='email' type="email" value={email} placeholder="Email" name="email" onChange={change}/>
               <label className='label'>Password:</label>

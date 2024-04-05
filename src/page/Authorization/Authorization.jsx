@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAuthorizationQuery } from '../../redux/usersApi';
+import { useAuthorizationMutation } from '../../redux/postsApi';
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
@@ -13,11 +13,10 @@ function Authorization() {
     email: '',
     password: '',
   });
-
     
   const { email, password } = formdata;
   
-  const [ authUser, {isError} ] = useAuthorizationQuery({email, password});
+  const [ authorization, { isLoading, isError } ] = useAuthorizationMutation();
     
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -26,11 +25,16 @@ function Authorization() {
     setformdata({...formdata,[e.target.name]:e.target.value});
   }
 
-  const submit = e =>{
+  const submit = async (e) => {
     e.preventDefault();
-    setformdata({ email: '', password: '' });
-    setshow(false);
-  } 
+    try {
+      await authorization({ email, password });
+      setformdata({ email: '', password: '' });
+      setshow(false);
+    } catch (error) {
+      console.error('Ошибка при авторизации:', error);
+    }
+  }; 
   
   return(
     <>
