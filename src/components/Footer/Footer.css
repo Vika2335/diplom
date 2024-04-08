@@ -1,21 +1,50 @@
 #footer {
-  background: linear-gradient(0deg, rgba(105,113,159,1) 0%, rgba(71,64,79,1) 100%);
   position: fixed;
-  left: 0;
-  right: 0;
   bottom: 0;
   z-index: 10;
+  margin: 0 auto;
 }
 
 .content p{
   color: white;
-  font-size: 24px;
-  text-align: center;
+  font-size: 20px;
 }
 
 .footer__content {
+  background: #745A90;
+  margin: 0 auto;
+  width: 1641px;
+  height: 215px;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.connect {
+  padding-top: 50px;
+  padding-left: 60px;
+  text-align: start;
+}
+
+.information {
+  width: 470px;
+  padding-top: 50px;
+  padding-right: 60px;
+}
+
+.city {
+  color: #36006CA1;
+  font-size: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 40px;
+  margin-top: 60px;
+}
+
+.phone {
+  margin-bottom: 20px;
 }

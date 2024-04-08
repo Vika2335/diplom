@@ -12,9 +12,10 @@ function MainPage() {
     return(
       <div className='post' key={item._id}>
         <Link to={`/post/${item._id}`}>
-          <button className='post__button'>
+          <div className='post__button'>
             <h2 className='title'>{item.header}</h2>
-          </button>
+            <p className='description'>{item.body}</p>
+          </div>
         </Link>
       </div>
     )
@@ -23,13 +24,10 @@ function MainPage() {
   return (
     <>
       <main>
-        <section>
+        <section className='main'>
           <div className="container">
-            <div className="main__post-content">
-              <h1 className='posts__heading'>Blog</h1>
-              <div className='posts'>
-                {contentPosts}
-              </div>
+            <div className="posts__gallery">
+              {contentPosts}
             </div>
           </div>
         </section>
@@ -38,4 +36,4 @@ function MainPage() {
   )
 }
 
-export default MainPage
+export default MainPage;

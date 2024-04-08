@@ -1,12 +1,18 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: "Montserrat", sans-serif;
 }
 
 #root {
   height: 100%;
   width: 100%;
 }
+
+/*.main {
+  background: rgb(51,0,103);
+  background: linear-gradient(90deg, rgba(51,0,103,1) 0%, rgba(34,2,72,1) 56%, rgba(18,4,41,1) 100%);
+}*/
 
 .container {
   --container-max-width: 1200px;

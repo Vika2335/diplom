@@ -1,10 +1,12 @@
 .header-main,
 .header-autorization {
-  background: rgb(105,113,159);
-  background: linear-gradient(0deg, rgba(105,113,159,1) 0%, rgba(71,64,79,1) 100%);
+  background: #745A90;
+  border-radius: 0 0 20px 20px;
+  width: 1638px;
+  margin: 0 auto;
 }
 
-.header-main .container,
+.header-main,
 .header-autorization {
   display: flex;
   justify-content: space-between;
@@ -18,8 +20,10 @@
 
 .logo__heading {
   color: white;
-  font-size: 32px;
+  font-size: 36px;
   margin: 2px;
+  font-weight: bold;
+  padding-left: 20px;
 }
 
 .wrapper-menu {
@@ -36,6 +40,7 @@
 .menu-list {
   display: flex;
   list-style-type: none;
+  padding-right: 20px;
 }  
 
 .menu a{
@@ -44,16 +49,11 @@
 }
 
 .menu a:hover {
-  border-bottom: 3px solid #f2ceb3ff;
+  border-bottom: 3px solid #220248;
 }
 
 .authorization {
-  border: 2px solid #fafafaff;
-  border-radius: 60px;
-  background: rgb(112, 32, 187);
-  padding: 10px 30px;
-  font-size: 18px;
-  color: aliceblue;
+  font-size: 20px;
 }
 
 .menu li {

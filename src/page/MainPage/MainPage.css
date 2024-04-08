@@ -1,30 +1,17 @@
-.main__post-content {
-  margin-top: 40px;
-}
-
-.posts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  padding-bottom: 40px;
-  gap: 50px;
-  flex-direction: column;
+.posts__gallery {
+  display: grid;
+  grid-template-columns: 741px 741px;
+  grid-template-rows: 216px 216px 216px 216px;
+  gap: 25px;
+  text-align: center;
 }
 
 .post__button {
-  border: 2px solid #fafafaff;
-  border-radius: 10px;
   background: #5D6084;
-  padding: 10px 30px;
   font-size: 24px;
   color: aliceblue;
-  width: 100%;
+  text-decoration: none;
 }
-
-.post {
-  width: 100%;
-}  
 
 .posts__heading {
   font-size: 48px;
@@ -36,5 +23,14 @@
 .title {
   display: flex;
   justify-content: start;
-  font-size: 28px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.description {
+  display: flex;
+  justify-content: start;
+  font-size: 20px;
+  text-decoration: none;
 }

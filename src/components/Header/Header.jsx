@@ -8,17 +8,15 @@ function Header({ user }) {
   return (
     <>
       <header className={ `header ${ location.pathname === '/' ? 'header-main' : 'header-autorization' }` }>
-        <div className='container'>
-          <Link className="logo" to="/">
-            <p className="logo__heading">BookWeekdays</p>
-          </Link>
-          <div className="wrapper-menu">
-            <nav className={ `menu ${ location.pathname === '/' ? 'menu-main' : 'menu-autorization' }` }>
-              <ul className="menu-list">
-                {user ? ( <li>{user.name}</li> ) : (<li><button className="authorization"><Link to="/authorization">Авторизация</Link></button></li> )}
-              </ul>
-            </nav>
-          </div>
+        <Link className="logo" to="/">
+          <p className="logo__heading">ДИСКУРС</p>
+        </Link>
+        <div className="wrapper-menu">
+          <nav className={ `menu ${ location.pathname === '/' ? 'menu-main' : 'menu-autorization' }` }>
+            <ul className="menu-list">
+              {user ? ( <li>{user.name}</li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
+            </ul>
+          </nav>
         </div>
       </header>
     </>
