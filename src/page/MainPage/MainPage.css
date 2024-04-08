@@ -7,9 +7,11 @@
 }
 
 .post__button {
-  background: #5D6084;
   font-size: 24px;
   color: aliceblue;
+}
+
+.link {
   text-decoration: none;
 }
 
@@ -25,12 +27,32 @@
   justify-content: start;
   font-size: 20px;
   font-weight: bold;
-  text-decoration: none;
 }
 
-.description {
+.description,
+.tags {
   display: flex;
   justify-content: start;
   font-size: 20px;
-  text-decoration: none;
+}
+
+.tags {
+  font-size: 16px;
+}
+
+.img__comment {
+  width: 20px;
+  height: 15px;
+}
+
+p {
+  color: aliceblue;
+}
+
+.post__content {
+  display: flex;
+}
+
+.int {
+  padding-left: 10px;
 }

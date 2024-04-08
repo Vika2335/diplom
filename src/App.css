@@ -4,20 +4,24 @@
   font-family: "Montserrat", sans-serif;
 }
 
+body {
+  height: 100dvh;
+}
+
+html {
+  background: rgb(51,0,103);
+  background: linear-gradient(90deg, rgba(51,0,103,1) 0%, rgba(34,2,72,1) 56%, rgba(18,4,41,1) 100%);
+}
+
 #root {
   height: 100%;
   width: 100%;
 }
 
-/*.main {
-  background: rgb(51,0,103);
-  background: linear-gradient(90deg, rgba(51,0,103,1) 0%, rgba(34,2,72,1) 56%, rgba(18,4,41,1) 100%);
-}*/
-
 .container {
+  display: flex;
+  justify-content: space-around;
   --container-max-width: 1200px;
-  --padding: 20px;
 
   width: min(var(--container-max-width), 100% - (var(--padding) * 2));
-  margin-inline: auto;
 }

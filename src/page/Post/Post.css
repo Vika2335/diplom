@@ -2,17 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
   margin-top: 50px;
   gap: 50px;
   flex-direction: column;
 }
 
 .post__name {
-  border: 2px solid #fafafaff;
-  border-radius: 10px;
-  background: #5D6084;
-  padding: 10px 30px;
   font-size: 24px;
   color: aliceblue;
 }
