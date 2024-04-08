@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 import { Link, useLocation } from 'react-router-dom'
 
-function Header({ user}) {
+function Header({ user }) {
   const location = useLocation();
 
   return (
@@ -15,7 +15,7 @@ function Header({ user}) {
           <div className="wrapper-menu">
             <nav className={ `menu ${ location.pathname === '/' ? 'menu-main' : 'menu-autorization' }` }>
               <ul className="menu-list">
-                {user ? ( <li><Link to="/profile">{user.name}</Link></li> ) : (<li><button className="authorization"><Link to="/authorization">Авторизация</Link></button></li> )}
+                {user ? ( <li>{user.name}</li> ) : (<li><button className="authorization"><Link to="/authorization">Авторизация</Link></button></li> )}
               </ul>
             </nav>
           </div>

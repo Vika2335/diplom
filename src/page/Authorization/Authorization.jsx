@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { useAuthorizationMutation } from '../../redux/postsApi';
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
 
-function Authorization() {
+function Authorization({ setUser }) {
   const [formdata, setformdata] = useState({
     email: '',
     password: '',
@@ -25,11 +25,15 @@ function Authorization() {
     setformdata({...formdata,[e.target.name]:e.target.value});
   }
 
+  const navigate = useNavigate();
+
   const submit = async (e) => {
     e.preventDefault();
     try {
-      await authorization({ email, password });
+      const { data } = await authorization({ email, password });
+      setUser(data.user);
       setformdata({ email: '', password: '' });
+      navigate('/');
       setshow(false);
     } catch (error) {
       console.error('Ошибка при авторизации:', error);
