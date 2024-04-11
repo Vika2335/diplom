@@ -45,20 +45,22 @@ function Authorization({ setUser }) {
       <section>
         <div className="authorization-page">
           <div className="authorization__content">
-            <h1 className="authorization__heading">Авторизация</h1>
-            <form className='authorization__form' onSubmit={submit}>
-              <label className='label'>Email:</label>
-              <input className='email' type="email" value={email} placeholder="Email" name="email" onChange={change}/>
-              <label className='label'>Password:</label>
-              <div className='password'>
-                <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Password" value={password} name="password" onChange={change}/>
-                {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
-              </div>
-              <div className='authorization__button'>
-                <input className="submit" type = "submit" name="submit"></input>
-              </div>
-            </form>
-            <p><Link to="/registration">Зарегистрироваться</Link></p>
+            <div className='authorization__border'>
+              <h1 className="authorization__heading">ВХОД:</h1>
+              <form className='authorization__form' onSubmit={submit}>
+                <label className='label-email'>Почта:</label>
+                <input className='email' type="email" value={email} placeholder="Почта" name="email" onChange={change}/>
+                <label className='label-password'>Пароль:</label>
+                <div className='password'>
+                  <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
+                  {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
+                </div>
+                <div className='authorization__button'>
+                  <button className="submit" type = "submit" name="submit">Войти</button>
+                </div>
+              </form>
+            </div>
+            <p className='link__registration'><Link to="/registration">Зарегистрироваться</Link></p>
           </div>
         </div>
       </section>

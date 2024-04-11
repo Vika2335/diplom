@@ -52,28 +52,29 @@ function Registration() {
       <section>
         <div className="registration">
           <div className="registration__content">
-            <h1 className="registration__heading">Регистрация</h1>
-            <form className='form' onSubmit={submit}>
-              <label className='label'>Name:</label>
-              <input className='name' type="name" value={username} placeholder="Name" name="username" onChange={change}/>
-              <label className='label'>Email:</label>
-              <input className='email' type="email" value={email} placeholder="Email" name="email" onChange={change}/>
-              <label className='label'>Password:</label>
-              <div className='password'>
-                <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Password" value={password} name="password" onChange={change}/>
-                {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
-              </div>
-              <label className='label'>Repeat the password:</label>
-              <div className='repeat__password'>
-                <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Repeat the password" value={repeatPassword} name="repeatPassword" onChange={change}/>
-                {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
-              </div>
-              <div className='registration__button'>
-                <input className="submit" type = "submit" name="submit"></input>
-              </div>
-            </form>
-            
-            <p><Link to="/authorization">Авторизоваться</Link></p>
+            <div className="registration__border">
+              <h1 className="registration__heading">Регистрация:</h1>
+              <form className='form' onSubmit={submit}>
+                <label className='label'>Имя пользователя:</label>
+                <input className='name' type="name" value={username} placeholder="Имя пользователя" name="username" onChange={change}/>
+                <label className='label'>Почта:</label>
+                <input className='email' type="email" value={email} placeholder="Почта" name="email" onChange={change}/>
+                <label className='label'>Пароль:</label>
+                <div className='password'>
+                  <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
+                  {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
+                </div>
+                <label className='label'>Подтвердите пароль:</label>
+                <div className='repeat__password'>
+                  <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={repeatPassword} name="repeatPassword" onChange={change}/>
+                  {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
+                </div>
+                <div className='registration__button'>
+                  <button className="submit-registr" type="submit" name="submit">Зарегистрироваться</button>
+                </div>
+              </form>
+            </div>
+            <p className="link__authorization"><Link to="/authorization">Войти</Link></p>
           </div>
         </div>
       </section>
