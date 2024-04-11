@@ -34,10 +34,16 @@
 .label-password {
   font-size: 22px;
   padding-top: 20px;
+  margin-left: 100px;
+  display: flex;
+  align-self: start;
 }
 
 .label-email {
   font-size: 22px;
+  margin-left: 100px;
+  display: flex;
+  align-self: start;
 }
 
 .password__input, 

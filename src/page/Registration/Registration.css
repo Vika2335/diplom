@@ -15,6 +15,9 @@
 
 .label {
   font-size: 22px;
+  margin-left: 100px;
+  display: flex;
+  align-self: start;
 }
 
 .registration__border {

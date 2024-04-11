@@ -25,3 +25,8 @@ html {
 
   width: min(var(--container-max-width), 100% - (var(--padding) * 2));
 }
+
+/* input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #1E0241 inset;
+  -webkit-text-fill-color: white; 
+} */
