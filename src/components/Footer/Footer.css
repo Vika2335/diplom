@@ -1,8 +1,14 @@
-#footer {
+.footer-main {
   width: 100%;
 }
 
-.content p{
+.footer-autorization {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.content p {
   color: white;
   font-size: 20px;
 }

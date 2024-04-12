@@ -100,3 +100,7 @@ input {
   color: #C571E2;
   margin: 40px 0;
 }
+
+.link__registration a:visited {
+  color: #C571E2;
+}

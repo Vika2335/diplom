@@ -3,7 +3,11 @@
   grid-template-columns: 741px 741px;
   grid-template-rows: 216px 216px 216px 216px;
   gap: 25px;
-  text-align: center;
+}
+
+.main {
+  width: 1500px;
+  margin: 0 auto;
 }
 
 .post__button {
@@ -22,11 +26,16 @@
   margin: 20px 0;
 }
 
+.post {
+  height: 216px;
+}
+
 .title {
   display: flex;
   justify-content: start;
   font-size: 20px;
   font-weight: bold;
+  padding-bottom: 20px;
 }
 
 .description,
@@ -34,15 +43,16 @@
   display: flex;
   justify-content: start;
   font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .tags {
   font-size: 16px;
-}
-
-.img__comment {
-  width: 20px;
-  height: 15px;
+  padding-top: 20px;
 }
 
 p {
@@ -51,8 +61,130 @@ p {
 
 .post__content {
   display: flex;
+  margin-top: 15px;
+  gap: 25px;
 }
 
 .int {
   padding-left: 10px;
+  font-size: 16px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+.datetime {
+  padding-top: 12px;
+}
+
+.view__int {
+  font-size: 16px;
+}
+
+.load {
+  color: #C571E2;
+}
+
+.information__post {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter {
+  display: flex;
+}
+
+.lupa {
+  padding-top: 10px;
+}
+
+.button__lupa {
+  background-color: transparent;
+  border: none;
+}
+
+.comment,
+.views,
+.hearts,
+.datetime {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  align-self: flex-start;
+  margin-bottom: 40px;
+}
+
+.new,
+.popular {
+  color: #C571E2;
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+  height: 80px;
+}
+
+.new {
+  margin-right: 30px;
+}
+
+/*.new:focus,
+.popular:focus {
+  border-bottom: #C571E2;
+}*/
+
+.filters {
+  display: flex;
+  align-self: flex-end;
+  gap: 50px;
+  margin: 50px 0;
+}
+
+.filter__content,
+.filter__name,
+.filter__tag {
+  width: 250px;
+  font-size: 15px;
+}
+
+.pagination__button-img {
+  border-radius: 5px;
+  border: 2px solid #6c5b80;
+  background-color: #6c5b80;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  margin-bottom: 100px;
+  color: aliceblue;
+}
+
+.pagination__button-img:disabled {
+  border-color: #6c5b80;
+  cursor: default;
+}
+
+.pagination__button-img:disabled:hover {
+  background: transparent;
+}
+
+.nav-img {
+  border: 2px solid #6c5b80;
+  color: aliceblue;
+}
+
+.pagination__button {
+  background-color: #6c5b80;
+}
+
+.pagination__button-img {
+  cursor: pointer;
+}
+.pagination {
+  display: flex;
+  gap: 10px;
+  margin-top: 100px;
 }

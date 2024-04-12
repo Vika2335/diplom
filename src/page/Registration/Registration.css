@@ -82,3 +82,7 @@
   color: #C571E2;
   margin: 20px 0;
 }
+
+.link__authorization a:visited {
+  color: #C571E2;
+}

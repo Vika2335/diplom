@@ -21,12 +21,14 @@ html {
 .container {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   --container-max-width: 1200px;
 
   width: min(var(--container-max-width), 100% - (var(--padding) * 2));
 }
 
-/* input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #1E0241 inset;
-  -webkit-text-fill-color: white; 
-} */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgba(34, 2, 72, 1) inset;
+  -webkit-text-fill-color: #C571E2; 
+}
