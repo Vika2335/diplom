@@ -4,6 +4,8 @@ import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthorizationMutation } from '../../redux/postsApi';
+import { useDispatch } from 'react-redux';
+import { setUsers } from '../../redux/userSlice';
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
@@ -26,14 +28,13 @@ function Authorization({ setUser }) {
   }
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await authorization({ email, password });
-      console.log(data.user);
-      setUser(data.user);
-      //localStorage.setItem('token', data.token);
+      console.log(dispatch(setUsers(data)));
       setformdata({ email: '', password: '' });
       navigate('/');
       setshow(false);

@@ -31,42 +31,17 @@ function MainPage() {
       const tagMatch = tagFilter.trim() === '' || tags.toLowerCase().includes(tagFilter.toLowerCase());
       return headerMatch && bodyMatch && tagMatch;
     });
+
+    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+    setMaxPages(totalPages);
+
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = Math.min(startIndex + postsPerPage, filteredPosts.length);
+    const currentPosts = filteredPosts.slice(startIndex, endIndex);
+    setPosts(currentPosts);
+    
     setFilteredPosts(filteredPosts);
   };
-
-  const contentPosts = filteredPosts.map((item) => {
-    return(
-      <div className='post' key={item._id}>
-        <Link className='link' to={`/post/${item._id}`}>
-          <div className='post__button'>
-            <h2 className='title'>{item.header}</h2>
-            <p className='description'>{item.body}</p>
-            <p className='tags'>{item.tags}</p>
-            <div className='information__post'>
-              <div className='post__content'>
-                <div className='views'>
-                  <p className='view__int'>2.2K</p>
-                  <img src={eye} alt='No image'/>
-                </div>
-                <div className='comment'>
-                  <p className='int'>10</p>
-                  <img src={comment} alt='No image'/>
-                </div>
-                <div className='hearts'>
-                  <p className='int'>5</p>
-                  <img src={heart} alt='No image'/>
-                </div>
-              </div>
-              <div className='datetime'>
-                <p className='date'>{format(new Date(item.createdAt), 'dd.MM.yyyy')}</p>
-                <img src={datetime} alt='No image'/>
-              </div>
-            </div>
-          </div>
-        </Link>
-      </div>
-    )
-  }) 
 
   const postsPerPage = 8;
 
@@ -164,7 +139,41 @@ function MainPage() {
               <div className='button__popular'><button className='popular'>Популярное</button></div>
             </div>
             <div className="posts__gallery">
-              {contentPosts}
+              {filteredPosts.length > 0 ? (
+                postsPag.map((item) => (
+                  <div className='post' key={item._id}>
+                    <Link className='link' to={`/post/${item._id}`}>
+                      <div className='post__button'>
+                        <h2 className='title'>{item.header}</h2>
+                        <p className='description'>{item.body}</p>
+                        <p className='tags'>{item.tags}</p>
+                        <div className='information__post'>
+                          <div className='post__content'>
+                            <div className='views'>
+                              <p className='view__int'>2.2K</p>
+                              <img src={eye} alt='No image'/>
+                            </div>
+                            <div className='comment'>
+                              <p className='int'>10</p>
+                              <img src={comment} alt='No image'/>
+                            </div>
+                            <div className='hearts'>
+                              <p className='int'>5</p>
+                              <img src={heart} alt='No image'/>
+                            </div>
+                          </div>
+                          <div className='datetime'>
+                            <p className='date'>{format(new Date(item.createdAt), 'dd.MM.yyyy')}</p>
+                            <img src={datetime} alt='No image'/>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <p className='notFound'>Посты не найдены.</p>
+              )}
             </div>
             <div className="nav">
               <div className="pagination">
