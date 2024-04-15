@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Header.css'
 import { Link, useLocation } from 'react-router-dom'
 
 function Header({ user }) {
   const location = useLocation();
+
+  useEffect(() => {
+    console.log('User state:', user);
+  }, [user]);
 
   return (
     <>
@@ -14,7 +18,7 @@ function Header({ user }) {
         <div className="wrapper-menu">
           <nav className={ `menu ${ location.pathname === '/' ? 'menu-main' : 'menu-autorization' }` }>
             <ul className="menu-list">
-              {user ? ( <li>{user.name}</li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
+              {user ? ( <li className='username'>{user.username}</li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
             </ul>
           </nav>
         </div>

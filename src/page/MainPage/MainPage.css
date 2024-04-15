@@ -183,8 +183,19 @@ p {
 .pagination__button-img {
   cursor: pointer;
 }
+
 .pagination {
   display: flex;
   gap: 10px;
   margin-top: 100px;
+}
+
+.pagination__button-img:disabled {
+  background-color: #C571E2;
+  cursor: default;
+}
+
+.notFound {
+  color: #C571E2;
+  font-size: 36px;
 }

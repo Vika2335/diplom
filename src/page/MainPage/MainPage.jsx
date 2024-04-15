@@ -68,7 +68,77 @@ function MainPage() {
     )
   }) 
 
+  const postsPerPage = 8;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxPages, setMaxPages] = useState(1);
+  const [postsPag, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (!isLoading && posts) {
+      const totalPages = Math.ceil(posts.length / postsPerPage);
+      setMaxPages(totalPages);
+
+      const startIndex = (currentPage - 1) * postsPerPage;
+      const endIndex = Math.min(startIndex + postsPerPage, posts.length);
+      const currentPosts = posts.slice(startIndex, endIndex);
+      setPosts(currentPosts);
+    }
+  }, [posts, currentPage, isLoading]);
+
+  useEffect(() => {
+    updatePaginationButtons();
+  }, [currentPage, maxPages]);
+
+  function updatePaginationButtons() {
+    const firstBackBtn = document.querySelector('#firstback');
+    const lastForwardBtn = document.querySelector('#lastforward');
+    const forwardBtn = document.querySelector('#forward');
+    const backBtn = document.querySelector('#back');
+  
+    if (firstBackBtn && lastForwardBtn && forwardBtn && backBtn) {
+      if (currentPage > 1) {
+        firstBackBtn.removeAttribute('disabled');
+        backBtn.removeAttribute('disabled');
+      } else {
+        firstBackBtn.setAttribute('disabled', 'true');
+        backBtn.setAttribute('disabled', 'true');
+      }
+  
+      if (currentPage === maxPages) {
+        lastForwardBtn.setAttribute('disabled', 'true');
+        forwardBtn.setAttribute('disabled', 'true');
+      } else {
+        lastForwardBtn.removeAttribute('disabled');
+        forwardBtn.removeAttribute('disabled');
+      }
+    }
+  
+    const centralBtn = document.querySelector('#page');
+    if (centralBtn) {
+      centralBtn.innerHTML = currentPage;
+    }
+  } 
+
+  function nextPage() { 
+    if (currentPage < maxPages) {
+      setCurrentPage(page => page + 1);
+    }
+  }
+
+  function previousPage() { 
+    if (currentPage > 1) {
+      setCurrentPage(page => page - 1);
+    }
+  }
+
   if (isLoading) return <h1 className='load'>Loading...</h1>
+
+  /*{filteredPosts.length > 0 ? (
+    contentPosts
+  ) : (
+    <p className='notFound'>Посты не найдены.</p>
+  )}*/
 
   return (
     <>
@@ -98,17 +168,17 @@ function MainPage() {
             </div>
             <div className="nav">
               <div className="pagination">
-                <button className="pagination__button-img" id="firstback">
+                <button className="pagination__button-img" id="firstback" onClick={() => setCurrentPage(1)}>
                   &lt;&lt;
                 </button>
-                <button className="pagination__button-img" id="back">
+                <button className="pagination__button-img" id="back" onClick={() => previousPage()}>
                   &lt;
                 </button>
-                <button className="pagination__button-img pagination__button" id="page"></button>
-                <button className="pagination__button-img nav-img" id="forward">
+                <button className="pagination__button-img pagination__button" id="page">{currentPage}</button>
+                <button className="pagination__button-img nav-img" id="forward"  onClick={() => nextPage()}>
                   &gt;
                 </button>
-                <button className="pagination__button-img nav-img" id="lastforward">
+                <button className="pagination__button-img nav-img" id="lastforward" onClick={() => setCurrentPage(maxPages)}>
                   &gt;&gt;
                 </button>
               </div>

@@ -31,7 +31,9 @@ function Authorization({ setUser }) {
     e.preventDefault();
     try {
       const { data } = await authorization({ email, password });
+      console.log(data.user);
       setUser(data.user);
+      //localStorage.setItem('token', data.token);
       setformdata({ email: '', password: '' });
       navigate('/');
       setshow(false);
