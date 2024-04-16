@@ -25,9 +25,8 @@ function Post() {
 
   const handleLike = async () => {
     try {
-      useLikePostQuery(id).unwrap().then((likedPost) => {
-        setLikedCount(likedPost.data.likes.length);
-      });
+      const likedPost = await useLikePostQuery(id).unwrap();
+      setLikedCount(likedPost.data.likes.length);
     } catch (error) {
       console.error('Ошибка при лайке поста:', error);
     }
