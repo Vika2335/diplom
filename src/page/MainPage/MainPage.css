@@ -50,6 +50,10 @@
   -webkit-box-orient: vertical;
 }
 
+.description {
+  height: 75px;
+}
+
 .tags {
   font-size: 16px;
   padding-top: 20px;

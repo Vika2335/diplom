@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthorizationMutation } from '../../redux/postsApi';
 import { useDispatch } from 'react-redux';
 import { setUsers } from '../../redux/userSlice';
+import { useGetMeQuery } from '../../redux/userAuthAPI';
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
@@ -19,7 +20,8 @@ function Authorization({ setUser }) {
   const { email, password } = formdata;
   
   const [ authorization, { isLoading, isError } ] = useAuthorizationMutation();
-    
+  const getMeQuery = useGetMeQuery();
+  
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,7 +36,13 @@ function Authorization({ setUser }) {
     e.preventDefault();
     try {
       const { data } = await authorization({ email, password });
-      console.log(dispatch(setUsers(data)));
+      localStorage.setItem('token', data.token);
+      const token = localStorage.getItem('token');
+      if (token) {
+        const user = await getMeQuery.refetch(); // Перезапускаем запрос после сохранения токена в localStorage
+        dispatch(setUsers(user.data));
+      }
+      //dispatch(setUsers(data));
       setformdata({ email: '', password: '' });
       navigate('/');
       setshow(false);

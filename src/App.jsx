@@ -7,11 +7,10 @@ import Authorization from './page/Authorization/Authorization.jsx'
 import Post from './page/Post/Post.jsx'
 import Registration from './page/Registration/Registration.jsx'
 import React, { useState } from "react";
+import UserCabinet from './page/UserCabinet/UserCabinet.jsx'
 
 function App() {
   const [user, setUser] = useState(null);
-
-  console.log("User state:", user);
 
   return (
     <>
@@ -21,6 +20,7 @@ function App() {
         <Route path='/authorization' element={<Authorization setUser={setUser}/>}/>
         <Route path='/registration' element={<Registration />}/>
         <Route path='/post/:id' element={<Post />}/>
+        <Route path='/userCabinet' element={<UserCabinet />}></Route>
       </Routes> 
       <Footer />
     </>

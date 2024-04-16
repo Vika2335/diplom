@@ -109,12 +109,6 @@ function MainPage() {
 
   if (isLoading) return <h1 className='load'>Loading...</h1>
 
-  /*{filteredPosts.length > 0 ? (
-    contentPosts
-  ) : (
-    <p className='notFound'>Посты не найдены.</p>
-  )}*/
-
   return (
     <>
       <main>
@@ -150,15 +144,15 @@ function MainPage() {
                         <div className='information__post'>
                           <div className='post__content'>
                             <div className='views'>
-                              <p className='view__int'>2.2K</p>
+                              <p className='view__int'>{item.viewCount}</p>
                               <img src={eye} alt='No image'/>
                             </div>
                             <div className='comment'>
-                              <p className='int'>10</p>
+                              <p className='int'>{item.comments.length}</p>
                               <img src={comment} alt='No image'/>
                             </div>
                             <div className='hearts'>
-                              <p className='int'>5</p>
+                              <p className='int'>{item.likes.length}</p>
                               <img src={heart} alt='No image'/>
                             </div>
                           </div>
