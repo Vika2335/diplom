@@ -24,7 +24,7 @@ function Header() {
               </ul>
             ) : (
               <ul className="menu-list">
-                {user.email ? ( <li className='username'>{user.username}</li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
+                {user.email ? ( <li className='username'><Link to={"/userCabinet"}>{user.username}</Link></li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
               </ul>
             ) }
           </nav>
