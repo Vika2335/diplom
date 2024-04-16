@@ -39,10 +39,9 @@ function Authorization({ setUser }) {
       localStorage.setItem('token', data.token);
       const token = localStorage.getItem('token');
       if (token) {
-        const user = await getMeQuery.refetch(); // Перезапускаем запрос после сохранения токена в localStorage
+        const user = await getMeQuery.refetch();
         dispatch(setUsers(user.data));
       }
-      //dispatch(setUsers(data));
       setformdata({ email: '', password: '' });
       navigate('/');
       setshow(false);

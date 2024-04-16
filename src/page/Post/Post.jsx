@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Post.css'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetOnePostQuery } from '../../redux/postsApi';
@@ -7,18 +7,31 @@ import eye from '../../image/icons/eye.svg'
 import heart from '../../image/icons/heart.svg'
 import datetime from '../../image/icons/datetime.svg'
 import { format } from 'date-fns';
+import { useLikePostQuery } from '../../redux/likePost';
 
 function Post() {
   const { id } = useParams();
   const { data: post, isLoading } = useGetOnePostQuery(id);
+  const firstLikes = post?.likes?.length || 0;
 
-  //const [liked, setLiked] = useState(false);
+
+  const [likedCount, setLikedCount] = useState(firstLikes);
 
   const navigate = useNavigate();
 
   const backButton = () => {
     navigate('/');
   }
+
+  const handleLike = async () => {
+    try {
+      useLikePostQuery(id).unwrap().then((likedPost) => {
+        setLikedCount(likedPost.data.likes.length);
+      });
+    } catch (error) {
+      console.error('Ошибка при лайке поста:', error);
+    }
+  };
 
   if (isLoading) return <h1>Loading...</h1>
 
@@ -46,8 +59,8 @@ function Post() {
                         <img src={comment} alt='No image'/>
                       </div>
                       <div className='hearts'>
-                        <p className='int'>{post.likes.length}</p>
-                        <button className='button-heart' onClick={() => alert('jgjgj')}><img src={heart} alt='No image'/></button>
+                        <p className='int'>{likedCount}</p>
+                        <button className='button-heart' onClick={handleLike}><img src={heart} alt='No image'/></button>
                       </div>
                       <div className='post__tags'>
                         <p className='tag'>{post.tags}</p>
