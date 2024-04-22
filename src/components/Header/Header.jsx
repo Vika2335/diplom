@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-
+import Avatar from 'react-avatar';
 
 function Header() {
   const location = useLocation();
@@ -20,11 +20,11 @@ function Header() {
             {user.roles?.includes('ADMIN') ? (
               <ul className="menu-list">
                 <button className='createPost'>Создать пост</button>
-                {user.email ? ( <li className='username'><Link to={"/userCabinet"}>{user.username}</Link></li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
+                {user.email ? ( <li className='username'><Link to={"/userCabinet"}><Avatar className='avatar' name={user.username} round={true} size='50px'/></Link></li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
               </ul>
             ) : (
               <ul className="menu-list">
-                {user.email ? ( <li className='username'><Link to={"/userCabinet"}>{user.username}</Link></li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
+                {user.email ? ( <li className='username'><Link to={"/userCabinet"}><Avatar className='avatar' name={user.username} round={true} size='50px'/></Link></li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
               </ul>
             ) }
           </nav>

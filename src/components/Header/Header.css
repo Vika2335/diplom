@@ -49,8 +49,8 @@
   text-decoration: none;
 }
 
-.menu a:hover {
-  border-bottom: 3px solid #220248;
+.avatar {
+  border: 2px white solid;
 }
 
 .authorization {
