@@ -5,6 +5,7 @@
   margin-top: 50px;
   gap: 50px;
   flex-direction: column;
+  margin-bottom: 465px;
 }
 
 .post__name {

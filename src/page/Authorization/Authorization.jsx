@@ -59,10 +59,10 @@ function Authorization({ setUser }) {
               <h1 className="authorization__heading">ВХОД:</h1>
               <form className='authorization__form' onSubmit={submit}>
                 <label className='label-email'>Почта:</label>
-                <input className='email' type="email" value={email} placeholder="Почта" name="email" onChange={change}/>
+                <input className='email' type="email" required value={email} placeholder="Почта" name="email" onChange={change}/>
                 <label className='label-password'>Пароль:</label>
                 <div className='password'>
-                  <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
+                  <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
                 <div className='authorization__button'>

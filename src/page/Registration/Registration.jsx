@@ -56,17 +56,17 @@ function Registration() {
               <h1 className="registration__heading">Регистрация:</h1>
               <form className='form' onSubmit={submit}>
                 <label className='label'>Имя пользователя:</label>
-                <input className='name' type="name" value={username} placeholder="Имя пользователя" name="username" onChange={change}/>
+                <input className='name' required type="name" value={username} placeholder="Имя пользователя" name="username" onChange={change}/>
                 <label className='label'>Почта:</label>
-                <input className='email' type="email" value={email} placeholder="Почта" name="email" onChange={change}/>
+                <input className='email' required type="email" value={email} placeholder="Почта" name="email" onChange={change}/>
                 <label className='label'>Пароль:</label>
                 <div className='password'>
-                  <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
+                  <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
                 <label className='label'>Подтвердите пароль:</label>
                 <div className='repeat__password'>
-                  <input className='password__input' type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={repeatPassword} name="repeatPassword" onChange={change}/>
+                  <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={repeatPassword} name="repeatPassword" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
                 <div className='registration__button'>

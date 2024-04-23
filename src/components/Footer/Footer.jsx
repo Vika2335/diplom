@@ -7,7 +7,7 @@ function Footer() {
 
   return (
     <>
-      <footer id="footer" className={ `footer ${ location.pathname === '/' ? 'footer-main' : 'footer-autorization' }` }>
+      <footer id="footer" className="footer-main">
         <div className="container">
           <div className="footer__content">
             <div className="content">

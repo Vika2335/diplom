@@ -7,12 +7,14 @@
 .label-text {
   font-size: 16px;
   color: #C571E2;
+  margin-bottom: 15px;
 }
 
 .input-title,
 .input-tag,
 .body {
-  border: none,
+  margin-right: 50px;
+  color: aliceblue;
 }
 
 .data {
@@ -21,5 +23,37 @@
 }
 
 .create-post__data {
-  display: flex;
+  display: grid;
+  grid-template-columns: 700px 700px;
+}
+
+.body {
+  background-color: transparent;
+  border: 3px  #C571E2 solid;
+  font-size: 20px;
+  color: azure;
+}
+
+.label-text {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.download {
+  margin-top: 50px;
+  background-color: #D9D9D9;
+  border-radius: 20px;
+  padding: 50px;
+}
+
+.public__button {
+  background-color: #6F5A87;
+  border: 2px white solid;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }

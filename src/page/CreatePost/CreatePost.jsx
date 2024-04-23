@@ -16,7 +16,7 @@ function CreatePost() {
   const [createPost, { isLoading, isError }] = useCreatePostMutation();
 
   const change = (e) => {
-    setformdata({...formdata,[e.target.name]:e.target.value});
+    setformdata({...formdata, [e.target.name]:e.target.value});
   }
 
   const navigate = useNavigate();
@@ -24,9 +24,10 @@ function CreatePost() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      await createPost(formdata);
+      const { data } = await createPost(formdata);
+      console.log(data)
       setformdata({ header: '', body: '', tags: '' });
-      navigate('/post/:id');
+      navigate(`/post/${data._id}`);
     } catch (error) {
       console.error('Ошибка при создании поста:', error);
     }
@@ -42,20 +43,20 @@ function CreatePost() {
                 <div className='create-post__data'>
                   <div className='data'>
                     <label className='label-title'>Название:</label>
-                    <input className='input-title' type="title" value={header} placeholder="Название" name="name" onChange={change}/>
+                    <input className='input-title' required type="text" value={header} placeholder="Название" name="header" onChange={change}/>
                   </div>
                   <div className='data'>
                     <label className='label-tag'>Теги:</label>
-                    <input className='input-tag' type="title" value={tags} placeholder="Теги" name="tag" onChange={change}/>
+                    <input className='input-tag' required type="text" value={tags} placeholder="Теги" name="tags" onChange={change}/>
                   </div>
                 </div>
                 <button className='download'><img src={download} alt='No image'/></button>
                 <div className='data'>
                   <label className='label-text'>Текст:</label>
-                  <input className='body' type="body" value={body} placeholder="Текст" name="body" onChange={change}/>
+                  <textarea className='body' minLength="3" rows="10" required type="body" value={body} placeholder="Текст" name="body" onChange={change}></textarea>
                 </div>
+                <button className='public__button' type="submit" name="submit">Опубликовать</button>
               </form>
-              <button className='public__button' type="submit" name="submit">Опубликовать</button>
             </div>
           </div>
         </section>

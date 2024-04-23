@@ -12,7 +12,7 @@ export const postsApi = createApi({
             query: (body) => ({
                 url: 'posts',
                 method: 'POST',
-                body,
+                body: body,
             })
         }),
 
