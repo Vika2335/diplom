@@ -8,7 +8,7 @@ export const like = createApi({
 				query(id) {
 					return {
 						url: `posts/${id}/like`,
-						headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+						headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
 					}
 				}
 			}),

@@ -19,7 +19,7 @@ function Header() {
           <nav className={ `menu ${ location.pathname === '/authorization' ||  location.pathname === '/registration'? 'menu-autorization' :  'menu-main'}` }>
             {user.roles?.includes('ADMIN') ? (
               <ul className="menu-list">
-                <button className='createPost'>Создать пост</button>
+                <Link to='/createPost'><button className='createPost'>Создать пост</button></Link>
                 {user.email ? ( <li className='username'><Link to={"/userCabinet"}><Avatar className='avatar' name={user.username} round={true} size='50px'/></Link></li> ) : (<li className='authorization'><Link to="/authorization">Войти</Link><Link to="/registration">/Зарегистрироваться</Link></li> )}
               </ul>
             ) : (

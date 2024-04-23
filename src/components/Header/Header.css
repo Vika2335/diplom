@@ -47,6 +47,7 @@
 .menu a{
   color: #e8e7e6ff;
   text-decoration: none;
+  display: flex;
 }
 
 .avatar {

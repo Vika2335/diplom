@@ -1,0 +1,25 @@
+.create-post__content {
+  margin-top: 50px;
+}
+
+.label-title,
+.label-tag,
+.label-text {
+  font-size: 16px;
+  color: #C571E2;
+}
+
+.input-title,
+.input-tag,
+.body {
+  border: none,
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-post__data {
+  display: flex;
+}

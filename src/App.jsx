@@ -8,6 +8,7 @@ import Post from './page/Post/Post.jsx'
 import Registration from './page/Registration/Registration.jsx'
 import React, { useState } from "react";
 import UserCabinet from './page/UserCabinet/UserCabinet.jsx'
+import CreatePost from './page/CreatePost/CreatePost.jsx'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -21,6 +22,7 @@ function App() {
         <Route path='/registration' element={<Registration />}/>
         <Route path='/post/:id' element={<Post />}/>
         <Route path='/userCabinet' element={<UserCabinet />}></Route>
+        <Route path='/createPost' element={<CreatePost />}></Route>
       </Routes> 
       <Footer />
     </>

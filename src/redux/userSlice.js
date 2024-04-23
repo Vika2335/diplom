@@ -4,7 +4,8 @@ const initialState = {
   accessToken: null,
   email: null,
   username: null,
-  roles: null
+  roles: null,
+  withUs: null,
 };
 
 const userSlice = createSlice({
@@ -17,6 +18,7 @@ const userSlice = createSlice({
       state.email = data.email;
       state.username = data.username;
       state.roles = data.roles;
+      state.withUs = data.withUs;
     },
     clearUser(state) {
       state.accessToken = null;

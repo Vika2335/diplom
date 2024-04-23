@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -36,7 +36,7 @@ function Authorization({ setUser }) {
     e.preventDefault();
     try {
       const { data } = await authorization({ email, password });
-      localStorage.setItem('token', data.accessToken);
+      localStorage.setItem('accessToken', data.accessToken);
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
         const user = await getMeQuery.refetch();
@@ -66,7 +66,7 @@ function Authorization({ setUser }) {
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
                 <div className='authorization__button'>
-                  <button className="submit" type = "submit" name="submit">Войти</button>
+                  <button className="submit" type="submit" name="submit">Войти</button>
                 </div>
               </form>
             </div>
