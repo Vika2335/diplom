@@ -36,9 +36,9 @@ function Authorization({ setUser }) {
     e.preventDefault();
     try {
       const { data } = await authorization({ email, password });
-      localStorage.setItem('token', data.token);
-      const token = localStorage.getItem('token');
-      if (token) {
+      localStorage.setItem('token', data.accessToken);
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
         const user = await getMeQuery.refetch();
         dispatch(setUsers(user.data));
       }

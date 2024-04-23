@@ -4,6 +4,7 @@ import './UserCabinet.css'
 import { useSelector } from 'react-redux';
 import edit from '../../image/icons/edit.svg'
 import Avatar from 'react-avatar';
+import date from '../../image/icons/datetime.svg'
 
 function UserCabinet() {
   const user = useSelector((state) => state.user);
@@ -20,7 +21,7 @@ function UserCabinet() {
                 <div className='edit'>
                   <p className='cabinet__username'>{user.username}</p>
                   <div className='edit-img'>
-                    <img src={edit} alt='No image'/>
+                    <img src={edit} alt='No icon'/>
                   </div>
                 </div>
               </div>
@@ -29,11 +30,20 @@ function UserCabinet() {
                 <div className='edit'>
                   <p className='cabinet__useremail'>{user.email}</p>
                   <div className='edit-img'>
-                    <img src={edit} alt='No image'/>
+                    <img src={edit} alt='No icon'/>
                   </div>
                 </div>
               </div>
               <Avatar className='avatar' name={user.username} round={true} size='150px'/>
+              <div className='day__registr'>
+                <p className='user__field'>С нами с: </p>
+                <div className='day'>
+                  <p className='createdAt'>{user.createdAt}</p>
+                  <div className='day-img'>
+                    <img src={date} alt='No icon'/>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

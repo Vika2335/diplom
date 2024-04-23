@@ -7,7 +7,7 @@ export const api = createApi({
     getMe: build.query({
       query() {
         return {
-          url: "auth/me",
+          url: "user/me",
           headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         }
       }
