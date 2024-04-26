@@ -24,10 +24,11 @@ function CreatePost() {
   const submit = async (e) => {
     e.preventDefault();
     try {
+      console.log(createPost(formdata))
       const { data } = await createPost(formdata);
-      console.log(data)
+      console.log(data);
       setformdata({ header: '', body: '', tags: '' });
-      navigate(`/post/${data._id}`);
+      navigate(`/post/${data._id || data.id}`);
     } catch (error) {
       console.error('Ошибка при создании поста:', error);
     }

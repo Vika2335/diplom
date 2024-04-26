@@ -7,7 +7,7 @@ function Footer() {
 
   return (
     <>
-      <footer id="footer" className="footer-main">
+      <footer id="footer" className={ `footer ${ location.pathname === '/post/:id' ? 'footer-post' : 'footer-main' }` }>
         <div className="container">
           <div className="footer__content">
             <div className="content">

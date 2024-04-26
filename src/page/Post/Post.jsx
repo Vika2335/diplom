@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import './Post.css'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetOnePostQuery } from '../../redux/postsApi';
+import { useLikePostQuery } from '../../redux/likePost'
 import comment from '../../image/icons/comment.svg';
 import eye from '../../image/icons/eye.svg'
 import heart from '../../image/icons/heart.svg'
 import datetime from '../../image/icons/datetime.svg'
 import { format } from 'date-fns';
-import { useLikePostQuery } from '../../redux/likePost';
 
 function Post() {
   const { id } = useParams();
@@ -23,10 +23,13 @@ function Post() {
     navigate('/');
   }
 
+  const { data: likedPost, error: likeError } = useLikePostQuery(id);
+
   const handleLike = async () => {
     try {
-      const likedPost = await useLikePostQuery(id).unwrap();
-      setLikedCount(likedPost.data.likes.length);
+      if (likedPost) {
+        console.log(setLikedCount(likedPost.likes.length));
+      }
     } catch (error) {
       console.error('Ошибка при лайке поста:', error);
     }
