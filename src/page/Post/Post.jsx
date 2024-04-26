@@ -28,7 +28,7 @@ function Post() {
   const handleLike = async () => {
     try {
       if (likedPost) {
-        console.log(setLikedCount(likedPost.likes.length));
+        setLikedCount(likedPost.likes.length);
       }
     } catch (error) {
       console.error('Ошибка при лайке поста:', error);

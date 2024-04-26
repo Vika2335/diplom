@@ -22,17 +22,15 @@ function CreatePost() {
   const navigate = useNavigate();
 
   const submit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      console.log(createPost(formdata))
-      const { data } = await createPost(formdata);
-      console.log(data);
-      setformdata({ header: '', body: '', tags: '' });
-      navigate(`/post/${data._id || data.id}`);
+      const doc = await createPost(formdata);
+      setformdata({ header: "", body: "", tags: "" })
+      navigate(`/post/${doc.data._id || doc.data._id}`)
     } catch (error) {
-      console.error('Ошибка при создании поста:', error);
+      console.error("Ошибка при создании поста:", error)
     }
-  }; 
+  }
 
   return (
     <>
