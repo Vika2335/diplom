@@ -3,6 +3,7 @@ import { postsApi } from './postsApi';
 import userReducer from './userSlice';
 import { api } from './userAuthAPI'
 import { like } from './likePost'
+import { comment } from './commentPost'
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         user: userReducer,
         [api.reducerPath]: api.reducer,
         [like.reducerPath]: like.reducer,
+        [comment.reducerPath]: like.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(postsApi.middleware, api.middleware, like.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(postsApi.middleware, api.middleware, like.middleware, comment.middleware),
 });

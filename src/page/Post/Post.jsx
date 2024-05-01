@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import './Post.css'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetOnePostQuery } from '../../redux/postsApi';
-import { useLikePostQuery } from '../../redux/likePost'
+import { useLikePostMutation } from '../../redux/likePost'
 import comment from '../../image/icons/comment.svg';
 import eye from '../../image/icons/eye.svg'
 import heart from '../../image/icons/heart.svg'
 import datetime from '../../image/icons/datetime.svg'
 import { format } from 'date-fns';
+import Comment from '../../components/Comment/Comment';
 
 function Post() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ function Post() {
     navigate('/');
   }
 
-  const { data: likedPost, error: likeError } = useLikePostQuery(id);
+  const { data: likedPost, error: likeError } = useLikePostMutation(id);
 
   const handleLike = async () => {
     try {
@@ -75,6 +76,7 @@ function Post() {
                   </div>
                 </div>
               </div>
+              <Comment postId={id}/>
             </div>
           </div>
         </section>

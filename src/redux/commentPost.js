@@ -1,19 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const like = createApi({
-  reducerPath: "like",
+export const comment = createApi({
+  reducerPath: "comment",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
   endpoints: (build) => ({
-    likePost: build.mutation({
+    commentPost: build.mutation({
       query: (id) => ({
-        url: `/posts/${id}/like`,
+        url: `/posts/comments/${id}`,
         method: "POST",
         headers: {
-          Authorization: Bearer `${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
     }),
   }),
 })
 
-export const { useLikePostMutation } = like;
+export const { useCommentPostMutation } = comment;
