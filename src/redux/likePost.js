@@ -9,7 +9,7 @@ export const like = createApi({
         url: `/posts/${id}/like`,
         method: "POST",
         headers: {
-          Authorization: Bearer `${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }),
     }),
