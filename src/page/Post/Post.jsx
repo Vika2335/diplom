@@ -37,7 +37,7 @@ function Post() {
   }
 
   return isLoading ? (
-    <>Loading...</>
+    <h1 className='load'>Loading...</h1>
   ) : (
     <>
       <main onLoad={() => setLikedCount(post.likes.length)}>
@@ -82,7 +82,7 @@ function Post() {
                   </div>
                 </div>
               </div>
-              <Comment postId={id} />
+              <Comment postId={id}/>
             </div>
           </div>
         </section>

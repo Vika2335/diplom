@@ -4,10 +4,15 @@ export const comment = createApi({
   reducerPath: "comment",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
   endpoints: (build) => ({
-    commentPost: build.mutation({
-      query: (id) => ({
-        url: `/posts/comments/${id}`,
+    getCommentPosts: build.query({
+      query: (id) => `posts/comments/${id}`
+    }),
+
+    createComment: build.mutation({
+      query: ({ postId, comment }) => ({
+        url: 'comments',
         method: "POST",
+        body: {postId, comment},
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -16,4 +21,4 @@ export const comment = createApi({
   }),
 })
 
-export const { useCommentPostMutation } = comment;
+export const { useCreateCommentMutation, useGetCommentPostsQuery } = comment;
