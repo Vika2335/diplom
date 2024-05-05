@@ -5,12 +5,24 @@
 }
 
 .comments {
-  
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-post {
+  background-color: #AE9FBE;
+  border: #AE9FBE solid;
+  font-size: 15px;
+  height: 29px;
+  border-radius: 10px 0 0 10px;
+  padding-left: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .comment-form {
   display: flex;
-  align-items: flex-start;
 }
 
 .comment-text {
@@ -20,8 +32,20 @@
   color: #C571E2;
   width: 655px;
   height: 29px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 0px;
   padding-left: 5px;
+}
+
+.comment-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -14px; /* Расстояние до левого края облачка */
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 14px; /* Размеры стрелки четвёртого угла */
+  border-color: transparent transparent transparent #E5E7EA; 
 }
 
 .comment-button {
@@ -46,4 +70,22 @@
 
 .error {
   color: aliceblue;
+}
+
+.button-like {
+  display: flex;
+  border: 2px solid #7F0137;
+  background-color: #7F0137;
+  border-radius: 0 10px 10px 0;
+  padding: 5px 10px;
+  font-size: 15px;
+  height: 35px;
+}
+
+.comment-datetime {
+  color: #36006C;
+  font-size: 8px;
+  text-align: end;
+  margin-left: 30px;
+  margin-right: 5px;
 }
