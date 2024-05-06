@@ -26,6 +26,7 @@
   font-size: 20px;
   margin-top: 10px;
   margin-right: 5px;
+  color: aliceblue;
 }
 
 .edit {
@@ -77,4 +78,21 @@
   color: #C571E2;
   font-size: 20px;
   font-weight: bold;
+}
+
+.edit-img {
+  background-color: transparent;
+  border: none;
+}
+
+.save {
+  width: 25px;
+  height: 25px;
+  color: #9A35A0;
+  margin-left: 5px;
+}
+
+.save-button {
+  background-color: transparent;
+  border: none;
 }

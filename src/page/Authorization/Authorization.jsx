@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAuthorizationMutation } from '../../redux/postsApi';
+import { useAuthorizationMutation } from '../../redux/userAuthAPI';
 import { useDispatch } from 'react-redux';
 import { setUsers } from '../../redux/userSlice';
 import { useGetMeQuery } from '../../redux/userAuthAPI';

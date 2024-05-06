@@ -26,9 +26,15 @@ const userSlice = createSlice({
       state.username = null;
       state.roles = null;
     },
+    updateUser(state, action) {
+      const data = action.payload;
+      state.accessToken = data.accessToken;
+      state.email = data.email;
+      state.username = data.username;
+    },
   },
 });
 
-export const { setUsers, clearUser } = userSlice.actions;
+export const { setUsers, clearUser, updateUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,21 +1,38 @@
 import React, { useEffect, useState } from "react"
 import "./Comment.css"
+import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import Avatar from "react-avatar"
 import {
   useCreateCommentMutation,
   useGetCommentPostsMutation,
+  useLikeCommentMutation,
 } from "../../redux/commentPost"
 import heart from "../../image/icons/heart.svg"
 import { format } from "date-fns"
 
 function Comment({ postId }) {
+  const { id } = useParams()
   const user = useSelector((state) => state.user)
 
-  const [test, { isLoading }] = useGetCommentPostsMutation()
+  const [test, { isLoading }] = useGetCommentPostsMutation(id)
   const [comments, setComments] = useState(null)
 
-  const [likedCount, setLikedCount] = useState(0);
+  const [likedCounts, setLikedCounts] = useState({});
+  const [likedComment] = useLikeCommentMutation();
+
+  const handleLike = async (id) => {
+    try {
+      const likesOnComment = await likedComment(id)
+      if (likesOnComment) {
+        const updatedLikedCounts = { ...likedCounts };
+        updatedLikedCounts[id] = likesOnComment.data.likes.length;
+        setLikedCounts(updatedLikedCounts);
+      }
+    } catch (error) {
+      console.error("Ошибка при лайке комментария:", error)
+    }
+  }
 
   useEffect(() => {
     if (postId) {
@@ -43,7 +60,7 @@ function Comment({ postId }) {
 
   const contentComment = comments
     ? comments.map((comment) => (
-        <div className="comment-block" key={comment._id}>
+        <div className="created-comment" key={comment._id}>
           <div className="comment-post">
             {comment.comment}
             <div className="comment-datetime">
@@ -56,9 +73,9 @@ function Comment({ postId }) {
             </div>
           </div>
           <div className="comment__button-heart">
-            <button className="button-like">
+            <button className="button-like" onClick={() => handleLike(comment._id)}>
               <img src={heart} alt="No image" />
-              <p className="int">{likedCount}</p>
+              <p className="int">{likedCounts[comment._id] || 0}</p>
             </button>
           </div>
         </div>

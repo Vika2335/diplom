@@ -3,7 +3,7 @@ import './Registration.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRegistrationMutation } from '../../redux/postsApi'
+import { useRegistrationMutation } from '../../redux/userAuthAPI'
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;

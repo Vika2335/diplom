@@ -21,7 +21,17 @@ export const comment = createApi({
         },
       }),
     }),
+
+    likeComment: build.mutation({
+      query: (id) => ({
+        url: `comments/${id}/likes`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useCreateCommentMutation, useGetCommentPostsMutation } = comment
+export const { useCreateCommentMutation, useGetCommentPostsMutation, useLikeCommentMutation } = comment

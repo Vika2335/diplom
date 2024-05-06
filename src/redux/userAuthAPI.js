@@ -11,8 +11,34 @@ export const api = createApi({
           headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
         }
       }
-    })
+    }),
+
+    authorization: build.mutation({
+      query: ({ email, password }) => ({
+          url: 'auth/login', 
+          method: 'POST',
+          body: { email, password },
+      }),
+    }),
+    
+    registration: build.mutation({
+      query: ({ email, password, username }) => ({
+          url: 'auth/registration', 
+          method: 'POST',
+          body: { email, password, username },
+      })
+    }),
+
+    changeData: build.mutation({
+      query: () => ({
+        url: "user/newUserData",
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
   })
 });
 
-export const { useGetMeQuery } = api;
+export const { useGetMeQuery, useAuthorizationMutation, useRegistrationMutation, useChangeDataMutation} = api;

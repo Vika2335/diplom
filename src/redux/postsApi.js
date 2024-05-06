@@ -20,23 +20,11 @@ export const postsApi = createApi({
     getOnePost: build.query({
       query: (id) => `posts/${id}`
     }),
-    
-    authorization: build.mutation({
-      query: ({ email, password }) => ({
-          url: '/auth/login', 
-          method: 'POST',
-          body: { email, password },
-      }),
-    }),
-    
-    registration: build.mutation({
-      query: ({ email, password, username }) => ({
-          url: '/auth/registration', 
-          method: 'POST',
-          body: { email, password, username },
-      })
+
+    getLikePosts: build.query({
+      query: () => 'posts/latest'
     }),
   })
 });
 
-export const { useGetPostsQuery, useGetOnePostQuery, useAuthorizationMutation, useRegistrationMutation,  useCreatePostMutation} = postsApi;
+export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsQuery } = postsApi;

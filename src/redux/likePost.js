@@ -6,7 +6,7 @@ export const like = createApi({
   endpoints: (build) => ({
     likePost: build.mutation({
       query: (id) => ({
-        url: `/posts/${id}/like`,
+        url: `posts/${id}/like`,
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
