@@ -29,16 +29,17 @@ export const api = createApi({
       })
     }),
 
-    changeData: build.mutation({
-      query: () => ({
-        url: "user/newUserData",
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }),
-    }),
+    changeUserData: build.mutation({
+      query: ({ email, username }) => ({
+        url: 'user/newUserData',
+        method: 'PATCH',
+        body: {email, username},
+        headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
+      })
+    })
+
+
   })
 });
 
-export const { useGetMeQuery, useAuthorizationMutation, useRegistrationMutation, useChangeDataMutation} = api;
+export const { useGetMeQuery, useAuthorizationMutation, useRegistrationMutation, useChangeUserDataMutation} = api;

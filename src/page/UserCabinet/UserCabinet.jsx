@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { 
+  Link, 
+  useNavigate 
+} from 'react-router-dom'
 import './UserCabinet.css'
-import { useSelector, useDispatch } from 'react-redux';
+import { 
+  useSelector, 
+  useDispatch 
+} from 'react-redux';
 import edit from '../../image/icons/edit.svg'
 import Avatar from 'react-avatar';
 import date from '../../image/icons/datetime.svg'
 import log_out from '../../image/icons/logout.svg'
-import { clearUser, updateUser } from '../../redux/userSlice';
+import { 
+  clearUser, 
+  updateUser 
+} from '../../redux/userSlice';
 import heart from '../../image/icons/heart.svg'
 import { FaRegSave } from "react-icons/fa";
-import { useChangeDataMutation } from '../../redux/userAuthAPI'
+import { useChangeUserDataMutation } from '../../redux/userAuthAPI'
 import { useGetLikePostsQuery } from '../../redux/postsApi'
 
 function UserCabinet() {
@@ -30,12 +39,12 @@ function UserCabinet() {
     navigate('/');
   }
 
-  const [ change ] = useChangeDataMutation();
+  const [ change ] = useChangeUserDataMutation();
 
   const saveChanges = async(e) => {
     e.preventDefault();
     try {
-      await change({ email: editedEmail, username: editedName });
+      await change({ editedEmail, editedName });
       setIsEditing(false);
       dispatch(updateUser({ username: editedName, email: editedEmail }));
     } catch (error) {

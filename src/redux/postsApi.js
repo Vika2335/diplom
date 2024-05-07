@@ -24,7 +24,17 @@ export const postsApi = createApi({
     getLikePosts: build.query({
       query: () => 'posts/latest'
     }),
+
+    changePostData: build.mutation({
+      query: (id) => ({
+        url: `posts/${id}`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
   })
 });
 
-export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsQuery } = postsApi;
+export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsQuery, useChangePostDataMutation } = postsApi;

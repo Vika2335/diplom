@@ -1,7 +1,13 @@
 import React, { useState } from "react"
 import "./Post.css"
-import { useParams, useNavigate } from "react-router-dom"
-import { useGetOnePostQuery } from "../../redux/postsApi"
+import { 
+  useParams, 
+  useNavigate 
+} from "react-router-dom"
+import { 
+  useChangePostDataMutation, 
+  useGetOnePostQuery 
+} from "../../redux/postsApi"
 import { useLikePostMutation } from "../../redux/likePost"
 import comment from "../../image/icons/comment.svg"
 import eye from "../../image/icons/eye.svg"
@@ -10,7 +16,12 @@ import datetime from "../../image/icons/datetime.svg"
 import { format } from "date-fns"
 import Comment from "../../components/Comment/Comment"
 import edit from '../../image/icons/edit.svg'
-import { useSelector } from 'react-redux';
+import { 
+  useSelector, 
+  useDispatch  
+} from 'react-redux';
+import { FaRegSave } from "react-icons/fa";
+import { updatePost } from "../../redux/postSlice"
 
 function Post() {
   const user = useSelector((state) => state.user);
@@ -40,6 +51,25 @@ function Post() {
     }
   }
 
+  const [editedHeader, setEditedHeader] = useState(user.header);
+  const [editedBody, setEditedBody] = useState(user.body);
+  const [editedTags, setEditedTags] = useState(user.tags);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [ changePost ] = useChangePostDataMutation();
+  const dispatch = useDispatch();
+
+  const saveChangesPost = async(e) => {
+    e.preventDefault();
+    try {
+      await changePost({ header: editedHeader, body: editedBody, tags: editedTags });
+      setIsEditing(false);
+      dispatch(updatePost({ header: editedHeader, body: editedBody, tags: editedTags }));
+    } catch (error) {
+      console.error('Ошибка при изменении данных поста:', error);
+    }
+  }
+
   return isLoading ? (
     <h1 className='load'>Loading...</h1>
   ) : (
@@ -57,15 +87,41 @@ function Post() {
                 <div className="post__name">
                   {user.roles?.includes('ADMIN') ? (
                     <div className="block-edit">
-                      <h2 className="post__title">{post.header}</h2>
-                      <button className='edit-img'>
-                        <img src={edit} alt='No icon'/>
-                      </button>
+                      {!isEditing ? (
+                        <h2 className="post__title">{post.header}</h2>
+                      ) : (
+                        <input
+                          type="text"
+                          value={editedHeader}
+                          onChange={(e) => setEditedHeader(e.target.value)}
+                          className="edit-header"
+                          placeholder="Название"
+                        />
+                      )}
+                      {!isEditing ? (
+                        <button className='edit-img' onClick={() => setIsEditing(!isEditing)}>
+                          <img src={edit} alt='No icon'/>
+                        </button>
+                      ) : (
+                        <button className='save-button' onClick={saveChangesPost}>
+                          <FaRegSave className='save' />
+                        </button>
+                      )}
                     </div>
                   ) : (
                     <h2 className='post__title'>{post.header}</h2>
                   )}
-                  <p className="post__description">{post.body}</p>
+                  {!isEditing ? (
+                    <p className="post__description">{post.body}</p>
+                  ) : (
+                    <textarea
+                      type="text"
+                      value={editedBody}
+                      onChange={(e) => setEditedBody(e.target.value)}
+                      className="edit-body"
+                      placeholder="Текст"
+                    />
+                  )}
                   <div className="information__post">
                     <div className="post__content">
                       <div className="views">
@@ -83,7 +139,17 @@ function Post() {
                         </button>
                       </div>
                       <div className="post__tags">
+                      {!isEditing ? (
                         <p className="tag">{post.tags}</p>
+                      ) : (
+                        <input
+                          type="text"
+                          value={editedTags}
+                          onChange={(e) => setEditedTags(e.target.value)}
+                          className="edit-tags"
+                          placeholder="Теги"
+                        />
+                      )}
                       </div>
                     </div>
                     <div className="datetime">

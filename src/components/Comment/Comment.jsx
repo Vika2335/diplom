@@ -104,19 +104,39 @@ function Comment({ postId }) {
             />
           </li>
         ) : (
-          <p></p>
+          <li className="username">
+            <Avatar
+              className="avatar"
+              round={true}
+              size="50px"
+            />
+          </li>
         )}
-        <form onSubmit={handleSubmit} className="comment-form">
-          <textarea
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            className="comment-text"
-            placeholder="Оставьте свой комментарий здесь..."
-          />
-          <button type="submit" className="comment-button">
-            Отправить
-          </button>
-        </form>
+
+        {user.email ? (
+          <form onSubmit={handleSubmit} className="comment-form">
+            <textarea
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              className="comment-text"
+              placeholder="Оставьте свой комментарий здесь..."
+            />
+            <button type="submit" className="comment-button">
+              Отправить
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleSubmit} className="comment-form">
+            <textarea
+              className="comment-text"
+              placeholder="Войдите, чтобы оставить здесь свой комментарий..."
+            />
+            <button type="submit" className="unknown">
+              Отправить
+            </button>
+          </form>
+        )}
+        
       </div>
       {isLoading ? (
         <p>Комментарии загружаются...</p>

@@ -84,3 +84,16 @@
   display: flex;
   justify-content: space-between;
 }
+
+.edit-body {
+  background-color: transparent;
+  border: 3px  #C571E2 solid;
+  font-size: 20px;
+  color: azure;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.edit-header {
+  width: 100%;
+}
