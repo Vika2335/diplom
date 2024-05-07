@@ -18,29 +18,33 @@ function Comment({ postId }) {
   const [test, { isLoading }] = useGetCommentPostsMutation(id)
   const [comments, setComments] = useState(null)
 
-  const [likedCounts, setLikedCounts] = useState({});
-  const [likedComment] = useLikeCommentMutation();
+  const [likedCounts, setLikedCounts] = useState({})
+  const [likedComment] = useLikeCommentMutation()
 
   const handleLike = async (id) => {
     try {
       const likesOnComment = await likedComment(id)
       if (likesOnComment) {
-        const updatedLikedCounts = { ...likedCounts };
-        updatedLikedCounts[id] = likesOnComment.data.likes.length;
-        setLikedCounts(updatedLikedCounts);
+        const updatedLikedCounts = { ...likedCounts }
+        updatedLikedCounts[id] = likesOnComment.data.likes.length
+        setLikedCounts(updatedLikedCounts)
       }
     } catch (error) {
       console.error("Ошибка при лайке комментария:", error)
     }
   }
 
-  useEffect(() => {
+  const updateLikes = () => {
     if (postId) {
       test(postId)
         .unwrap()
         .then((res) => setComments(res))
     }
-  }, [postId])
+  }
+
+  useEffect(() => {
+    updateLikes()
+  }, [])
 
   const [commentText, setCommentText] = useState("")
   const [createComment] = useCreateCommentMutation()
@@ -73,9 +77,14 @@ function Comment({ postId }) {
             </div>
           </div>
           <div className="comment__button-heart">
-            <button className="button-like" onClick={() => handleLike(comment._id)}>
+            <button
+              className="button-like"
+              onClick={() => {
+                handleLike(comment._id), updateLikes()
+              }}
+            >
               <img src={heart} alt="No image" />
-              <p className="int">{likedCounts[comment._id] || 0}</p>
+              <p className="int">{comment.likes.length || 0}</p>
             </button>
           </div>
         </div>
