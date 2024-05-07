@@ -79,3 +79,8 @@
   background-color: #7F0137;
   border-radius: 20px;
 }
+
+.block-edit {
+  display: flex;
+  justify-content: space-between;
+}

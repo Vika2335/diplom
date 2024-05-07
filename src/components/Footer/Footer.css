@@ -2,10 +2,10 @@
   width: 100%;
 }
 
-.footer-post{
+.footer-post {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100%; 
 }
 
 .content p {
@@ -15,28 +15,28 @@
 
 .footer__content {
   background: #745A90;
-  width: 1641px;
-  height: 178px;
   border-radius: 20px 20px 0 0;
   display: flex;
   flex-direction: column;
+  padding: 20px 0;
+  width: 1641px;
 }
 
 .content {
   display: flex;
   justify-content: space-between;
+  padding: 0 20px;
 }
 
 .connect {
-  padding-top: 50px;
-  padding-left: 60px;
+  padding-top: 20px; 
+  padding-left: 20px; 
   text-align: start;
 }
 
 .information {
-  width: 470px;
-  padding-top: 50px;
-  padding-right: 60px;
+  padding-top: 20px; 
+  padding-right: 20px; 
 }
 
 .city {
@@ -44,6 +44,7 @@
   font-size: 20px;
   display: flex;
   justify-content: center;
+  padding: 20px 0; 
 }
 
 .phone {

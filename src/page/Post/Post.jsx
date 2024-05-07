@@ -9,8 +9,12 @@ import heart from "../../image/icons/heart.svg"
 import datetime from "../../image/icons/datetime.svg"
 import { format } from "date-fns"
 import Comment from "../../components/Comment/Comment"
+import edit from '../../image/icons/edit.svg'
+import { useSelector } from 'react-redux';
 
 function Post() {
+  const user = useSelector((state) => state.user);
+
   const { id } = useParams()
   const { data: post, isLoading } = useGetOnePostQuery(id);
 
@@ -51,7 +55,16 @@ function Post() {
                   </button>
                 </div>
                 <div className="post__name">
-                  <h2 className="post__title">{post.header}</h2>
+                  {user.roles?.includes('ADMIN') ? (
+                    <div className="block-edit">
+                      <h2 className="post__title">{post.header}</h2>
+                      <button className='edit-img'>
+                        <img src={edit} alt='No icon'/>
+                      </button>
+                    </div>
+                  ) : (
+                    <h2 className='post__title'>{post.header}</h2>
+                  )}
                   <p className="post__description">{post.body}</p>
                   <div className="information__post">
                     <div className="post__content">

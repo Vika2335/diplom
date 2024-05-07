@@ -7,7 +7,7 @@ function Footer() {
 
   return (
     <>
-      <footer id="footer" className={ `footer ${ location.pathname === `/post/` ? 'footer-post' : 'footer-main' }` }>
+      <footer id="footer" className={ `footer ${ location.pathname.includes('/post') ? 'footer-post' : 'footer-main' }` }>
         <div className="container">
           <div className="footer__content">
             <div className="content">
@@ -16,7 +16,7 @@ function Footer() {
                 <p className='email'>Почта: Discurs@mail.ru</p>
               </div>
               <div>
-                <p className='information'>Сайт является результатом дипломной работы. Не является коммерческим проектом</p>
+                <p className='information'>Сайт является результатом дипломной работы. <br /> Не является коммерческим проектом</p>
               </div>
             </div>
             <h2 className='city'>Кострома, 2024г.</h2>
