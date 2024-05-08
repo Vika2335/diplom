@@ -61,6 +61,7 @@
 
 .like-field {
   font-size: 20px;
+  margin-bottom: 50px;
 }
 
 .posts__like {
@@ -95,4 +96,11 @@
 .save-button {
   background-color: transparent;
   border: none;
+}
+
+.posts__like-gallery {
+  display: grid;
+  grid-template-columns: 741px 741px;
+  grid-template-rows: 216px ;
+  gap: 25px;
 }

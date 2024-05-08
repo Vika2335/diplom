@@ -1,0 +1,7 @@
+.posts__gallery-like {
+    display: grid;
+    grid-template-columns: 741px 741px;
+    grid-template-rows: 216px 216px 216px 216px;
+    gap: 25px;
+    margin-top: 70px;
+  }

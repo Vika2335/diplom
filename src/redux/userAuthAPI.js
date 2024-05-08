@@ -37,8 +37,6 @@ export const api = createApi({
         headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
       })
     })
-
-
   })
 });
 

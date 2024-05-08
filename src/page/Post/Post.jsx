@@ -56,13 +56,28 @@ function Post() {
   const [editedTags, setEditedTags] = useState(user.tags);
   const [isEditing, setIsEditing] = useState(false);
 
-  const [ changePost ] = useChangePostDataMutation();
+  const [ changePost ] = useChangePostDataMutation(id);
   const dispatch = useDispatch();
 
   const saveChangesPost = async(e) => {
     e.preventDefault();
     try {
-      await changePost({ header: editedHeader, body: editedBody, tags: editedTags });
+      let newHeader = '';
+      let newBody = '';
+      let newTags = '';
+      if(post.header != newHeader){
+        newHeader = editedHeader
+      }
+
+      if(post.body != editedBody){
+        newBody = editedBody
+      }
+      if(post.tags != editedTags){
+        newTags = editedTags
+      }
+
+      await changePost({ header: newHeader, body: newBody, tags: newTags, id: id });
+      
       setIsEditing(false);
       dispatch(updatePost({ header: editedHeader, body: editedBody, tags: editedTags }));
     } catch (error) {

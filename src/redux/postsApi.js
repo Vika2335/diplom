@@ -21,14 +21,20 @@ export const postsApi = createApi({
       query: (id) => `posts/${id}`
     }),
 
-    getLikePosts: build.query({
-      query: () => 'posts/latest'
+    getLikePosts: build.mutation({
+      query: () => ({
+        url: "posts/latest",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
     }),
 
     changePostData: build.mutation({
-      query: (id) => ({
+      query: ({header, body, tags}, id) => ({
         url: `posts/${id}`,
         method: "PATCH",
+        body: {header, body, tags, id},
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -37,4 +43,4 @@ export const postsApi = createApi({
   })
 });
 
-export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsQuery, useChangePostDataMutation } = postsApi;
+export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsMutation, useChangePostDataMutation, } = postsApi;

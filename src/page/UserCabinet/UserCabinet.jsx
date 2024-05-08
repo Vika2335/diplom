@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { 
+  useState, 
+  useEffect 
+} from 'react';
 import { 
   Link, 
   useNavigate 
@@ -19,16 +22,24 @@ import {
 import heart from '../../image/icons/heart.svg'
 import { FaRegSave } from "react-icons/fa";
 import { useChangeUserDataMutation } from '../../redux/userAuthAPI'
-import { useGetLikePostsQuery } from '../../redux/postsApi'
+import { useGetLikePostsMutation } from '../../redux/postsApi'
+import comment from '../../image/icons/comment.svg';
+import eye from '../../image/icons/eye.svg'
+import datetime from '../../image/icons/datetime.svg'
+import { format } from 'date-fns';
 
 function UserCabinet() {
   const user = useSelector((state) => state.user);
 
-  const { likePosts, isLoading } = useGetLikePostsQuery();
+  const [ getLikedPosts ] = useGetLikePostsMutation();
 
-  const [editedName, setEditedName] = useState(user.username);
-  const [editedEmail, setEditedEmail] = useState(user.email);
-  const [isEditing, setIsEditing] = useState(false);
+  const [likePosts, setLikePosts] = useState(0);
+
+  useEffect(() => {
+    getLikedPosts()
+      .unwrap()
+      .then((res) => setLikePosts(res.posts))
+  }, [])
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,12 +50,27 @@ function UserCabinet() {
     navigate('/');
   }
 
+  const [editedName, setEditedName] = useState(user.username);
+  const [editedEmail, setEditedEmail] = useState(user.email);
+  const [isEditing, setIsEditing] = useState(false);
+
   const [ change ] = useChangeUserDataMutation();
 
   const saveChanges = async(e) => {
     e.preventDefault();
     try {
-      await change({ editedEmail, editedName });
+      let newName = '';
+      let newEmail = '';
+      if(user.username != editedName){
+        newName = editedName
+      }
+
+      if(user.email != editedEmail){
+        newEmail = editedEmail
+      }
+
+      await change({ email: newEmail, username: newName });
+      
       setIsEditing(false);
       dispatch(updateUser({ username: editedName, email: editedEmail }));
     } catch (error) {
@@ -53,19 +79,34 @@ function UserCabinet() {
   }
 
   const contentLikePosts = likePosts ? (
-    likePosts.map((item) => (
+    [...likePosts]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 2)
+    .map((item) => (
       <div className='post' key={item._id}>
         <Link className='link' to={`/post/${item._id}`}>
           <div className='post__button'>
             <h2 className='title'>{item.header}</h2>
             <p className='description'>{item.body}</p>
             <p className='tags'>{item.tags}</p>
-            <div className='post__content'>
-              <div className='views'>
-                <p className='int'>2.2K</p>
+            <div className='information__post'>
+              <div className='post__content'>
+                <div className='views'>
+                  <p className='view__int'>{item.viewCount}</p>
+                  <img src={eye} alt='No image'/>
+                </div>
+                <div className='comment'>
+                  <p className='int'>{item.comments.length}</p>
+                  <img src={comment} alt='No image'/>
+                </div>
+                <div className='hearts'>
+                  <p className='int'>{item.likes.length}</p>
+                  <img src={heart} alt='No image'/>
+                </div>
               </div>
-              <div className='comment'>
-                <p className='int'>10</p>
+              <div className='datetime'>
+                <p className='date'>{format(new Date(item.createdAt), 'dd.MM.yyyy')}</p>
+                <img src={datetime} alt='No image'/>
               </div>
             </div>
           </div>
@@ -149,7 +190,7 @@ function UserCabinet() {
               </div>
               <div className='link__like'>
                 <img src={heart} alt='No icon'/>
-                <Link to="/" className='cabinet__link'>Смотреть все</Link>
+                <Link to="/likePosts" className='cabinet__link'>Смотреть все</Link>
               </div>
             </div>
           </div>
