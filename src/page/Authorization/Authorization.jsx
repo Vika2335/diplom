@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import React, { 
+  useState 
+} from 'react';
+import { 
+  Link, 
+  useNavigate 
+} from 'react-router-dom'
 import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthorizationMutation } from '../../redux/userAuthAPI';
-import { useDispatch } from 'react-redux';
+import { 
+  useDispatch,
+  useSelector
+ } from 'react-redux';
 import { setUsers } from '../../redux/userSlice';
 import { useGetMeQuery } from '../../redux/userAuthAPI';
 
 const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
 
-function Authorization({ setUser }) {
+function Authorization({  }) {
+  const user = useSelector((state) => state.user);
+
   const [formdata, setformdata] = useState({
     email: '',
     password: '',
@@ -31,11 +41,22 @@ function Authorization({ setUser }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
     try {
+      /*if (email !== user.email || password !== user.password) {
+        setError('Неправильный логин или пароль');
+        return;
+      }*/
+      
       const { data } = await authorization({ email, password });
+      /*if (!data) {
+        setError('Пользователь не найден');
+        return;
+      }*/
+
       localStorage.setItem('accessToken', data.accessToken);
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
@@ -65,6 +86,7 @@ function Authorization({ setUser }) {
                   <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
+                {error && <p className="error-authorization">{error}</p>}
                 <div className='authorization__button'>
                   <button className="submit" type="submit" name="submit">Войти</button>
                 </div>

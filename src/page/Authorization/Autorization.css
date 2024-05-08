@@ -104,3 +104,7 @@ input {
 .link__registration a:visited {
   color: #C571E2;
 }
+
+.error-authorization {
+  color: #C571E2;
+}
