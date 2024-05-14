@@ -20,8 +20,6 @@ const Eye = <FontAwesomeIcon className="icon" icon={faEye} />;
 const EyeSlash = <FontAwesomeIcon className="icon" icon ={faEyeSlash}/>;
 
 function Authorization({  }) {
-  const user = useSelector((state) => state.user);
-
   const [formdata, setformdata] = useState({
     email: '',
     password: '',

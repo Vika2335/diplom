@@ -31,10 +31,20 @@ export const postsApi = createApi({
     }),
 
     changePostData: build.mutation({
-      query: ({header, body, tags}, id) => ({
+      query: ({header, body, tags, id}) => ({
         url: `posts/${id}`,
         method: "PATCH",
-        body: {header, body, tags, id},
+        body: {header, body, tags},
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
+
+    deletePost:build.mutation({
+      query: (id) => ({
+        url: `posts/${id}`,
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -43,4 +53,4 @@ export const postsApi = createApi({
   })
 });
 
-export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsMutation, useChangePostDataMutation, } = postsApi;
+export const { useGetPostsQuery, useGetOnePostQuery, useCreatePostMutation, useGetLikePostsMutation, useChangePostDataMutation, useDeletePostMutation} = postsApi;

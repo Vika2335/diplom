@@ -25,9 +25,13 @@ import { updatePost } from "../../redux/postSlice"
 
 function Post() {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const { id } = useParams()
   const { data: post, isLoading } = useGetOnePostQuery(id);
+  console.log(post);
+
+  const selectedPost = useSelector((state) => state.post);
 
   const [likedCount, setLikedCount] = useState(0);
 
@@ -51,21 +55,21 @@ function Post() {
     }
   }
 
-  const [editedHeader, setEditedHeader] = useState(user.header);
-  const [editedBody, setEditedBody] = useState(user.body);
-  const [editedTags, setEditedTags] = useState(user.tags);
+  const [editedHeader, setEditedHeader] = useState(selectedPost.header);
+  const [editedBody, setEditedBody] = useState(selectedPost.body);
+  const [editedTags, setEditedTags] = useState(selectedPost.tags);
   const [isEditing, setIsEditing] = useState(false);
 
-  const [ changePost ] = useChangePostDataMutation(id);
-  const dispatch = useDispatch();
+  const [ changePost ] = useChangePostDataMutation();
 
   const saveChangesPost = async(e) => {
     e.preventDefault();
     try {
-      let newHeader = '';
-      let newBody = '';
-      let newTags = '';
-      if(post.header != newHeader){
+      let newHeader = undefined;
+      let newBody = undefined;
+      let newTags = undefined;
+
+      if(post.header != editedHeader){
         newHeader = editedHeader
       }
 
@@ -76,7 +80,11 @@ function Post() {
         newTags = editedTags
       }
 
-      await changePost({ header: newHeader, body: newBody, tags: newTags, id: id });
+      console.log(post._id);
+
+
+      const test = await changePost({ header: newHeader, body: newBody, tags: newTags , id: post._id});
+      console.log(test)
       
       setIsEditing(false);
       dispatch(updatePost({ header: editedHeader, body: editedBody, tags: editedTags }));

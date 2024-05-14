@@ -4,6 +4,7 @@ const initialState = {
   header: null,
   body: null,
   tags: null,
+  id: null,
 };
 
 const postSlice = createSlice({
@@ -16,9 +17,15 @@ const postSlice = createSlice({
       state.body = data.body;
       state.tags = data.tags;
     },
+    deletePost(state, action) {
+      const data = action.payload;
+      state.header = data.null;
+      state.body = data.null;
+      state.tags = data.null;
+    }
   },
 });
 
-export const { updatePost } = postSlice.actions;
+export const { updatePost, deletePost } = postSlice.actions;
 
 export default postSlice.reducer;
