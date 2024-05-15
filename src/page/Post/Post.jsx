@@ -1,4 +1,7 @@
-import React, { useState } from "react"
+import React, { 
+  useState,
+  useEffect 
+} from "react"
 import "./Post.css"
 import { 
   useParams, 
@@ -29,9 +32,8 @@ function Post() {
 
   const { id } = useParams()
   const { data: post, isLoading } = useGetOnePostQuery(id);
+  
   console.log(post);
-
-  const selectedPost = useSelector((state) => state.post);
 
   const [likedCount, setLikedCount] = useState(0);
 
@@ -55,10 +57,18 @@ function Post() {
     }
   }
 
-  const [editedHeader, setEditedHeader] = useState(selectedPost.header);
-  const [editedBody, setEditedBody] = useState(selectedPost.body);
-  const [editedTags, setEditedTags] = useState(selectedPost.tags);
+  const [editedHeader, setEditedHeader] = useState(post ? post.header : '');
+  const [editedBody, setEditedBody] = useState(post ? post.body : '');
+  const [editedTags, setEditedTags] = useState(post ? post.tags : '');
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if(post) {
+      setEditedHeader(post.header);
+      setEditedBody(post.body);
+      setEditedTags(post.tags);
+    }
+  }, [post]);  
 
   const [ changePost ] = useChangePostDataMutation();
 
@@ -81,7 +91,6 @@ function Post() {
       }
 
       console.log(post._id);
-
 
       const test = await changePost({ header: newHeader, body: newBody, tags: newTags , id: post._id});
       console.log(test)
