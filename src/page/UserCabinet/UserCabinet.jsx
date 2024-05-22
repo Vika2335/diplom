@@ -21,7 +21,10 @@ import {
 } from '../../redux/userSlice';
 import heart from '../../image/icons/heart.svg'
 import { FaRegSave } from "react-icons/fa";
-import { useChangeUserDataMutation } from '../../redux/userAuthAPI'
+import { 
+  useChangeUserDataMutation, 
+  useLogOutMutation 
+} from '../../redux/userAuthAPI'
 import { useGetLikePostsMutation } from '../../redux/postsApi'
 import comment from '../../image/icons/comment.svg';
 import eye from '../../image/icons/eye.svg'
@@ -44,11 +47,20 @@ function UserCabinet() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const logout = () => {
-    localStorage.removeItem("accessToken");
-    dispatch(clearUser(user.data));
-    navigate('/');
-  }
+  const [ logOut ] = useLogOutMutation();
+
+  const logout = async (e) => {
+    e.preventDefault();
+    try {
+      const test = await logOut(localStorage.getItem('refreshToken'));
+      console.log(test)
+      localStorage.removeItem("accessToken");
+      dispatch(clearUser(user.data));
+      navigate('/');
+    } catch (error) {
+      console.error('Ошибка при выходе:', error);
+    }
+  };
 
   const [editedName, setEditedName] = useState(user.username);
   const [editedEmail, setEditedEmail] = useState(user.email);

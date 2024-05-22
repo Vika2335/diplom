@@ -39,23 +39,15 @@ function Authorization({  }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [error, setError] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
     try {
-      /*if (email !== user.email || password !== user.password) {
-        setError('Неправильный логин или пароль');
-        return;
-      }*/
-      
       const { data } = await authorization({ email, password });
-      /*if (!data) {
-        setError('Пользователь не найден');
-        return;
-      }*/
-
+      console.log(data)
       localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refToken);
+      console.log(data)
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
         const user = await getMeQuery.refetch();
@@ -84,7 +76,6 @@ function Authorization({  }) {
                   <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
-                {error && <p className="error-authorization">{error}</p>}
                 <div className='authorization__button'>
                   <button className="submit" type="submit" name="submit">Войти</button>
                 </div>

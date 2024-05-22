@@ -36,8 +36,17 @@ export const api = createApi({
         body: {email, username},
         headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
       })
-    })
+    }),
+
+    logOut: build.mutation({
+      query: ({ refresh }) => ({
+        url: 'auth/logout',
+        method: 'PATCH',
+        body: {refresh},
+        headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
+      })
+    }),
   })
 });
 
-export const { useGetMeQuery, useAuthorizationMutation, useRegistrationMutation, useChangeUserDataMutation} = api;
+export const { useGetMeQuery, useAuthorizationMutation, useRegistrationMutation, useChangeUserDataMutation, useLogOutMutation } = api;

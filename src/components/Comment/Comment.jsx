@@ -10,6 +10,7 @@ import {
 } from "../../redux/commentPost"
 import heart from "../../image/icons/heart.svg"
 import { format } from "date-fns"
+import edit from '../../image/icons/edit.svg'
 
 function Comment({ postId }) {
   const { id } = useParams()
