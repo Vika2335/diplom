@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   accessToken: null,
+  refreshToken: null,
   email: null,
   username: null,
   roles: null,
@@ -15,6 +16,7 @@ const userSlice = createSlice({
     setUsers(state, action) {
       const data = action.payload;
       state.accessToken = data.accessToken;
+      state.refreshToken = data.refreshToken;
       state.email = data.email;
       state.username = data.username;
       state.roles = data.roles;
@@ -22,6 +24,7 @@ const userSlice = createSlice({
     },
     clearUser(state) {
       state.accessToken = null;
+      state.refreshToken = null;
       state.email = null;
       state.username = null;
       state.roles = null;
@@ -29,6 +32,7 @@ const userSlice = createSlice({
     updateUser(state, action) {
       const data = action.payload;
       state.accessToken = data.accessToken;
+      state.refreshToken = data.refreshToken;
       state.email = data.email;
       state.username = data.username;
     },

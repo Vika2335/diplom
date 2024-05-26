@@ -49,10 +49,12 @@ function UserCabinet() {
 
   const [ logOut ] = useLogOutMutation();
 
-  const logout = async (e) => {
+  const exit = async (e) => {
     e.preventDefault();
     try {
-      const test = await logOut(localStorage.getItem('refreshToken'));
+      console.log(localStorage.getItem('refToken'))
+      console.log
+      const test = await logOut({refresh: localStorage.getItem('refToken')});
       console.log(test)
       localStorage.removeItem("accessToken");
       dispatch(clearUser(user.data));
@@ -192,7 +194,7 @@ function UserCabinet() {
               </div>
             </div>
             <div className='logout'>
-              <button className='logout-button' onClick={logout}>Выйти</button>
+              <button className='logout-button' onClick={exit}>Выйти</button>
               <img src={log_out} alt='No icon'/>
             </div>
             <div className='posts__like'>

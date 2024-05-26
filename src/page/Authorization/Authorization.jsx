@@ -46,7 +46,7 @@ function Authorization({  }) {
       const { data } = await authorization({ email, password });
       console.log(data)
       localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refToken);
+      localStorage.setItem('refToken', data.refToken);
       console.log(data)
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
