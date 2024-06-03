@@ -31,7 +31,28 @@ export const comment = createApi({
         },
       }),
     }),
+
+    changeComment: build.mutation({
+      query: ({postId, comment, id}) => ({
+        url: `comments/${id}`,
+        method: "PATCH",
+        body: {comment, postId},
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
+
+    deleteComment:build.mutation({
+      query: (id) => ({
+        url: `comments/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useCreateCommentMutation, useGetCommentPostsMutation, useLikeCommentMutation } = comment
+export const { useCreateCommentMutation, useGetCommentPostsMutation, useLikeCommentMutation, useChangeCommentMutation, useDeleteCommentMutation } = comment

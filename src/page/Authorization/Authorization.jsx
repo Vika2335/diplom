@@ -9,10 +9,7 @@ import './Autorization.css'
 import { faEye,faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthorizationMutation } from '../../redux/userAuthAPI';
-import { 
-  useDispatch,
-  useSelector
- } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUsers } from '../../redux/userSlice';
 import { useGetMeQuery } from '../../redux/userAuthAPI';
 
@@ -39,20 +36,31 @@ function Authorization({  }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  const [error, setError] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await authorization({ email, password });
       console.log(data)
+
+      if (!data) {
+        setError('Пользователь не найден');
+        return;
+      }
+
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refToken', data.refToken);
       console.log(data)
+
       const accessToken = localStorage.getItem('accessToken');
+
       if (accessToken) {
         const user = await getMeQuery.refetch();
         dispatch(setUsers(user.data));
       }
+
       setformdata({ email: '', password: '' });
       navigate('/');
       setshow(false);
@@ -76,6 +84,7 @@ function Authorization({  }) {
                   <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={password} name="password" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
+                {error && <p className="error-authorization">{error}</p>}
                 <div className='authorization__button'>
                   <button className="submit" type="submit" name="submit">Войти</button>
                 </div>

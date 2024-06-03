@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import Avatar from "react-avatar"
 import {
+  comment,
+  useChangeCommentMutation,
   useCreateCommentMutation,
+  useDeleteCommentMutation,
   useGetCommentPostsMutation,
   useLikeCommentMutation,
 } from "../../redux/commentPost"
 import heart from "../../image/icons/heart.svg"
 import { format } from "date-fns"
-import edit from '../../image/icons/edit.svg'
 
 function Comment({ postId }) {
   const { id } = useParams()
@@ -53,44 +55,98 @@ function Comment({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await createComment({ postId, comment: commentText })
-      test(postId)
-        .unwrap()
-        .then((res) => setComments(res))
+      await createComment({ postId: id, comment: commentText })
+      if (comments) {
+        setComments([...comments, { _id: Date.now(), comment: commentText, createdAt: new Date(), likes: [] }])
+      } else {
+        setComments([{ _id: Date.now(), comment: commentText, createdAt: new Date(), likes: [] }])
+      }
       setCommentText("")
     } catch (error) {
       console.error("Ошибка при создании комментария:", error)
     }
   }
 
-  const contentComment = comments
-    ? comments.map((comment) => (
-        <div className="created-comment" key={comment._id}>
-          <div className="comment-post">
-            {comment.comment}
-            <div className="comment-datetime">
-              <div className="comment-timecomment-date">
-                {format(new Date(comment.createdAt), "HH:mm")}
-              </div>
-              <div className="comment-date">
-                {format(new Date(comment.createdAt), "dd.MM.yyyy")}
-              </div>
+  const [visibleDropdown, setVisibleDropdown] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedCommentText, setEditedCommentText] = useState("");
+  const [editComment] = useChangeCommentMutation();
+
+  const toggleDropdown = (commentId, commentText) => {
+    setVisibleDropdown(visibleDropdown === commentId ? null : commentId);
+    setEditedCommentText(commentText);
+  };
+
+  /*useEffect(() => {
+    if(comment) {
+      setEditedComment(comment.comment);
+    }
+  }, [comment]);  */
+  
+  const saveEditedComment = async () => {
+    try {
+      await editComment({ id: visibleDropdown, comment: editedCommentText });
+      setIsEditing(false);
+      updateLikes();
+    } catch (error) {
+      console.error("Ошибка при редактировании комментария:", error);
+    }
+  };
+
+  const handleEditClick = (commentId, commentText, postId) => {
+    toggleDropdown(commentId, commentText);
+    setIsEditing(true);
+    setEditedCommentText(commentText);
+  };
+
+  const [deleteComment] = useDeleteCommentMutation();
+
+  const handleDeleteClick = async (commentId) => {
+    try {
+      await deleteComment(commentId);
+      updateLikes();
+    } catch (error) {
+      console.error("Ошибка при удалении комментария:", error);
+    }
+  };
+
+  const contentComment = comments ? comments.map((comment) => (
+    <div className="created-comment" key={comment._id}>
+      <button className="dropdown" onClick={() => toggleDropdown(comment._id, comment.comment)}>
+        <div className="comment-post">
+          {comment.comment}
+          <div className="comment-datetime">
+            <div className="comment-timecomment-date">
+              {format(new Date(comment.createdAt), "HH:mm")}
+            </div>
+            <div className="comment-date">
+              {format(new Date(comment.createdAt), "dd.MM.yyyy")}
             </div>
           </div>
-          <div className="comment__button-heart">
-            <button
-              className="button-like"
-              onClick={() => {
-                handleLike(comment._id), updateLikes()
-              }}
-            >
-              <img src={heart} alt="No image" />
-              <p className="int">{comment.likes.length || 0}</p>
-            </button>
-          </div>
         </div>
-      ))
-    : null
+      </button>
+      {visibleDropdown === comment._id && (
+        <div className="dropdown-content show">
+          <a>
+            <button className="dropdown-edit" onClick={() => handleEditClick(comment._id, comment.comment, postId)}>Редактировать</button>
+          </a>
+          <a>
+            <button className="dropdown-delete" onClick={() => handleDeleteClick(comment._id)}>Удалить</button>
+          </a>
+        </div>
+      )}
+      <div className="comment__button-heart">
+        <button
+          className="button-like"
+          onClick={() => {
+            handleLike(comment._id), updateLikes()
+          }}
+        >
+          <img src={heart} alt="No image" />
+          <p className="int">{comment.likes.length || 0}</p>
+        </button>
+      </div>
+    </div>)) : null
 
   return (
     <div className="newComment">
@@ -113,18 +169,33 @@ function Comment({ postId }) {
             />
           </li>
         )}
-
+        
         {user.email ? (
           <form onSubmit={handleSubmit} className="comment-form">
-            <textarea
-              value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
-              className="comment-text"
-              placeholder="Оставьте свой комментарий здесь..."
-            />
-            <button type="submit" className="comment-button">
-              Отправить
-            </button>
+            {!isEditing ? (
+              <textarea
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                className="comment-text"
+                placeholder="Оставьте свой комментарий здесь..."
+              />
+            ) : (
+              <textarea
+                value={editedCommentText}
+                onChange={(e) => setEditedCommentText(e.target.value)}
+                className="comment-text"
+                placeholder="Отредактируйте свой комментарий здесь..."
+              />
+            )}
+            {!isEditing ? (
+              <button type="submit" className="comment-button">
+                Отправить
+              </button>
+            ) : (
+              <button onClick={saveEditedComment} className="comment-button">
+                Сохранить
+              </button>
+            )}
           </form>
         ) : (
           <form onSubmit={handleSubmit} className="comment-form">
