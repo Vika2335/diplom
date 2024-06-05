@@ -1,100 +1,87 @@
-import React, { 
-  useState,
-  useEffect 
-} from "react"
-import "./Post.css"
-import { 
-  useParams, 
-  useNavigate 
-} from "react-router-dom"
-import { 
-  useChangePostDataMutation, 
-  useGetOnePostQuery 
-} from "../../redux/postsApi"
-import { useLikePostMutation } from "../../redux/likePost"
-import comment from "../../image/icons/comment.svg"
-import eye from "../../image/icons/eye.svg"
-import heart from "../../image/icons/heart.svg"
-import datetime from "../../image/icons/datetime.svg"
-import { format } from "date-fns"
-import Comment from "../../components/Comment/Comment"
-import edit from '../../image/icons/edit.svg'
-import { 
-  useSelector, 
-  useDispatch  
-} from 'react-redux';
+import React, { useState, useEffect } from "react";
+import "./Post.css";
+import { useParams, useNavigate } from "react-router-dom";
+import { useChangePostDataMutation, useDeletePostMutation, useGetOnePostQuery } from "../../redux/postsApi";
+import { useLikePostMutation } from "../../redux/likePost";
+import Comment from "../../components/Comment/Comment";
+import { useSelector, useDispatch } from 'react-redux';
 import { FaRegSave } from "react-icons/fa";
-import { updatePost } from "../../redux/postSlice"
+import { updatePost } from "../../redux/postSlice";
+import arrow from '../../image/icons/arrow.svg';
+import comment from "../../image/icons/comment.svg";
+import eye from "../../image/icons/eye.svg";
+import heart from "../../image/icons/heart.svg";
+import datetime from "../../image/icons/datetime.svg";
+import { format } from "date-fns";
 
 function Post() {
+  const { id } = useParams();
+  const { data: post, isLoading } = useGetOnePostQuery(id);
+  const [likedCount, setLikedCount] = useState(0);
+  const [editedHeader, setEditedHeader] = useState('');
+  const [editedBody, setEditedBody] = useState('');
+  const [editedTags, setEditedTags] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  const { id } = useParams()
-  const { data: post, isLoading } = useGetOnePostQuery(id);
-  
-  console.log(post);
-
-  const [likedCount, setLikedCount] = useState(0);
-
-  const navigate = useNavigate()
-
-  const backButton = () => {
-    navigate("/")
-  }
-
   const [likedPost] = useLikePostMutation();
-
-  const handleLike = async () => {
-    try {
-      const likesOnPost = await likedPost(id)
-      if (likesOnPost) {
-        console.log(likesOnPost)
-        setLikedCount(likesOnPost.data.likes.length)
-      }
-    } catch (error) {
-      console.error("Ошибка при лайке поста:", error)
-    }
-  }
-
-  const [editedHeader, setEditedHeader] = useState(post ? post.header : '');
-  const [editedBody, setEditedBody] = useState(post ? post.body : '');
-  const [editedTags, setEditedTags] = useState(post ? post.tags : '');
-  const [isEditing, setIsEditing] = useState(false);
+  const [changePost] = useChangePostDataMutation();
+  const [deletePost] = useDeletePostMutation();
 
   useEffect(() => {
-    if(post) {
+    if (post) {
       setEditedHeader(post.header);
       setEditedBody(post.body);
       setEditedTags(post.tags);
+      setLikedCount(post.likes.length);
     }
-  }, [post]);  
+  }, [post]);
 
-  const [ changePost ] = useChangePostDataMutation();
+  if (isLoading) {
+    return <h1 className='load'>Loading...</h1>;
+  }
 
-  const saveChangesPost = async(e) => {
+  if (!post) {
+    return <h1 className='load'>Post not found</h1>;
+  }
+
+  const backButton = () => {
+    navigate("/");
+  }
+
+  const handleLike = async () => {
+    try {
+      const likesOnPost = await likedPost(id);
+      if (likesOnPost) {
+        setLikedCount(likesOnPost.data.likes.length);
+      }
+    } catch (error) {
+      console.error("Ошибка при лайке поста:", error);
+    }
+  }
+
+  const saveChangesPost = async (e) => {
     e.preventDefault();
     try {
       let newHeader = undefined;
       let newBody = undefined;
       let newTags = undefined;
 
-      if(post.header != editedHeader){
-        newHeader = editedHeader
+      if (post.header !== editedHeader) {
+        newHeader = editedHeader;
       }
 
-      if(post.body != editedBody){
-        newBody = editedBody
+      if (post.body !== editedBody) {
+        newBody = editedBody;
       }
-      if(post.tags != editedTags){
-        newTags = editedTags
+      if (post.tags !== editedTags) {
+        newTags = editedTags;
       }
 
-      console.log(post._id);
-
-      const test = await changePost({ header: newHeader, body: newBody, tags: newTags , id: post._id});
-      console.log(test)
-      
+      await changePost({ header: newHeader, body: newBody, tags: newTags, id: post._id });
       setIsEditing(false);
       dispatch(updatePost({ header: editedHeader, body: editedBody, tags: editedTags }));
     } catch (error) {
@@ -102,11 +89,19 @@ function Post() {
     }
   }
 
-  return isLoading ? (
-    <h1 className='load'>Loading...</h1>
-  ) : (
+  const handleDeletePost = async () => {
+    try {
+      await deletePost(id);
+      console.log("Пост удален");
+      navigate("/");
+    } catch (error) {
+      console.error('Ошибка при удалении поста:', error);
+    }
+  }
+
+  return (
     <>
-      <main onLoad={() => setLikedCount(post.likes.length)}>
+      <main>
         <section>
           <div className="container">
             <div className="posts">
@@ -131,9 +126,21 @@ function Post() {
                         />
                       )}
                       {!isEditing ? (
-                        <button className='edit-img' onClick={() => setIsEditing(!isEditing)}>
-                          <img src={edit} alt='No icon'/>
-                        </button>
+                        <div className="dropdown-post">
+                          <button className="edit-img" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                            <img src={arrow} className="arrow" alt="Arrow" />
+                          </button>
+                          {isDropdownOpen && (
+                            <div className="dropdown-post__content show">
+                              <button className="dropdown-post__edit" onClick={() => setIsEditing(!isEditing)}>
+                                Редактировать
+                              </button>
+                              <button className="dropdown-post__delete" onClick={() => setIsModalOpen(true)}>
+                                Удалить
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <button className='save-button' onClick={saveChangesPost}>
                           <FaRegSave className='save' />
@@ -171,17 +178,17 @@ function Post() {
                         </button>
                       </div>
                       <div className="post__tags">
-                      {!isEditing ? (
-                        <p className="tag">{post.tags}</p>
-                      ) : (
-                        <input
-                          type="text"
-                          value={editedTags}
-                          onChange={(e) => setEditedTags(e.target.value)}
-                          className="edit-tags"
-                          placeholder="Теги"
-                        />
-                      )}
+                        {!isEditing ? (
+                          <p className="tag">{post.tags}</p>
+                        ) : (
+                          <input
+                            type="text"
+                            value={editedTags}
+                            onChange={(e) => setEditedTags(e.target.value)}
+                            className="edit-tags"
+                            placeholder="Теги"
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="datetime">
@@ -193,13 +200,24 @@ function Post() {
                   </div>
                 </div>
               </div>
-              <Comment postId={id}/>
+              <Comment postId={id} />
             </div>
           </div>
         </section>
       </main>
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Вы уверены, что хотите удалить этот пост?</h2>
+            <div className="modal-buttons">
+              <button onClick={handleDeletePost}>Удалить</button>
+              <button onClick={() => setIsModalOpen(false)}>Отмена</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
 
-export default Post
+export default Post;

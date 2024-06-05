@@ -112,6 +112,8 @@ function Comment({ postId }) {
     }
   }
 
+  console.log(comments)
+
   const contentComment = comments
     ? comments.map((comment) => (
         <div className="created-comment" key={comment._id}>
