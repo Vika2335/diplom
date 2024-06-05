@@ -32,3 +32,44 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px rgba(34, 2, 72, 1) inset;
   -webkit-text-fill-color: #C571E2; 
 }
+
+@media screen and (max-width: 1280px) {
+  .header {
+    width: 1038px;
+  }
+  .main {
+    width: 1100px;
+  }
+  .footer__content{
+    width: 1041px;
+  }
+  .new,
+  .popular {
+    height: 60px;
+  }
+  .filter__content,
+  .filter__name,
+  .filter__tag {
+    width: 190px;
+  }
+  .filters {
+    width: 800px;
+  }
+  .buttons {
+    margin-left: 50px;
+  }
+  .posts__gallery {
+    display: grid;
+    grid-template-columns: 480px 480px;
+    grid-template-rows: 250px 250px 250px 250px;
+    gap: 25px;
+  }
+  .posts,
+  .post-content {
+    width: 1000px;
+  }
+  .post__name,
+  .post__title {
+    width: 100%;
+  }
+}

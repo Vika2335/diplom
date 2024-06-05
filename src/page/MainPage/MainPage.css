@@ -136,10 +136,10 @@ p {
   margin-right: 30px;
 }
 
-/*.new:focus,
+.new:focus,
 .popular:focus {
   border-bottom: #C571E2;
-}*/
+}
 
 .filters {
   display: flex;

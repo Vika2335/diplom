@@ -107,15 +107,22 @@ function MainPage() {
     }
   }
 
-  /*const handleNewPosts = () => {
-    const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    setFilteredPosts(sortedPosts);
+  const handleNewPosts = () => {
+    if (!isLoading && posts) {
+      const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setFilteredPosts(sortedPosts);
+      setCurrentPage(1);
+    }
   };
   
   const handlePopularPosts = () => {
-    const sortedPosts = [...posts].sort((a, b) => b.likes.length - a.likes.length);
-    setFilteredPosts(sortedPosts);
-  };*/
+    if (!isLoading && posts) {
+      const sortedPosts = [...posts].sort((a, b) => b.likes.length - a.likes.length);
+      setFilteredPosts(sortedPosts);
+      setCurrentPage(1);
+    }
+  };
+  
 
   if (isLoading) return <h1 className='load'>Loading...</h1>
 
@@ -139,8 +146,8 @@ function MainPage() {
               </div>
             </div>
             <div className='buttons'>
-              <div className='button__new'><button className='new' /*onClick={handleNewPosts}*/>Новое</button></div>
-              <div className='button__popular'><button className='popular' /*onClick={handlePopularPosts}*/>Популярное</button></div>
+              <div className='button__new'><button className='new' onClick={handleNewPosts}>Новое</button></div>
+              <div className='button__popular'><button className='popular' onClick={handlePopularPosts}>Популярное</button></div>
             </div>
             <div className="posts__gallery">
               {filteredPosts.length > 0 ? (
