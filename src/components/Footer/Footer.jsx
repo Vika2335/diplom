@@ -7,7 +7,7 @@ function Footer() {
 
   return (
     <>
-      <footer id="footer" className={ `footer ${ location.pathname.includes('/post') ? 'footer-post' : 'footer-main' }` }>
+      <footer id="footer" className={ `footer ${ location.pathname.includes('/post') || location.pathname.includes('/authorization') || location.pathname.includes('/registration') ? 'footer-post' : 'footer-main' }` }>
         <div className="container">
           <div className="footer__content">
             <div className="content">
