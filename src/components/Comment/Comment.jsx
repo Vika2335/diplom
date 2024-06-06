@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import "./Comment.css"
 import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -114,6 +114,21 @@ function Comment({ postId }) {
 
   console.log(comments)
 
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setVisibleDropdown(null);
+    }
+  };
+
   const contentComment = comments
     ? comments.map((comment) => (
         <div className="created-comment" key={comment._id}>
@@ -131,7 +146,7 @@ function Comment({ postId }) {
             </div>
           </button>
           {visibleDropdown === comment._id && (
-            <div className="dropdown-content show">
+            <div className="dropdown-content show" ref={dropdownRef}>
               <button className="dropdown-edit" onClick={() => handleEditClick(comment._id, comment.comment)}>
                 Редактировать
               </button>

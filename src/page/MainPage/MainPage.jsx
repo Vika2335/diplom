@@ -111,6 +111,7 @@ function MainPage() {
     if (!isLoading && posts) {
       const sortedPosts = [...posts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setFilteredPosts(sortedPosts);
+      setPosts(sortedPosts.slice(0, postsPerPage));
       setCurrentPage(1);
     }
   };
@@ -119,6 +120,7 @@ function MainPage() {
     if (!isLoading && posts) {
       const sortedPosts = [...posts].sort((a, b) => b.likes.length - a.likes.length);
       setFilteredPosts(sortedPosts);
+      setPosts(sortedPosts.slice(0, postsPerPage));
       setCurrentPage(1);
     }
   };

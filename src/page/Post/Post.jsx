@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Post.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useChangePostDataMutation, useDeletePostMutation, useGetOnePostQuery } from "../../redux/postsApi";
@@ -7,7 +7,6 @@ import Comment from "../../components/Comment/Comment";
 import { useSelector, useDispatch } from 'react-redux';
 import { FaRegSave } from "react-icons/fa";
 import { updatePost } from "../../redux/postSlice";
-import arrow from '../../image/icons/arrow.svg';
 import comment from "../../image/icons/comment.svg";
 import eye from "../../image/icons/eye.svg";
 import heart from "../../image/icons/heart.svg";
@@ -30,6 +29,20 @@ function Post() {
   const [likedPost] = useLikePostMutation();
   const [changePost] = useChangePostDataMutation();
   const [deletePost] = useDeletePostMutation();
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
 
   useEffect(() => {
     if (post) {
@@ -126,9 +139,11 @@ function Post() {
                         />
                       )}
                       {!isEditing ? (
-                        <div className="dropdown-post">
+                        <div className="dropdown-post" ref={dropdownRef}>
                           <button className="edit-img" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                            <img src={arrow} className="arrow" alt="Arrow" />
+                            <svg className="arrow" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                              <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill="#C571E2"/>
+                            </svg>
                           </button>
                           {isDropdownOpen && (
                             <div className="dropdown-post__content show">
