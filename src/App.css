@@ -8,6 +8,14 @@ body {
   height: 100%;
 }
 
+main {
+  margin: 0 auto;
+}
+
+.footer {
+  margin-top: auto;
+}
+
 html {
   background: rgb(51,0,103);
   background: linear-gradient(90deg, rgba(51,0,103,1) 0%, rgba(34,2,72,1) 56%, rgba(18,4,41,1) 100%);
@@ -16,6 +24,10 @@ html {
 #root {
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .container {

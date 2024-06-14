@@ -1,11 +1,5 @@
-.footer-main {
+.footer {
   width: 100%;
-}
-
-.footer-post {
-  position: fixed;
-  bottom: 0;
-  width: 100%; 
 }
 
 .content p {

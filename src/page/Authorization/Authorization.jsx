@@ -71,7 +71,7 @@ function Authorization({  }) {
   
   return(
     <>
-      <section>
+      <main>
         <div className="authorization-page">
           <div className="authorization__content">
             <div className='authorization__border'>
@@ -93,7 +93,7 @@ function Authorization({  }) {
             <p className='link__registration'><Link to="/registration">Зарегистрироваться</Link></p>
           </div>
         </div>
-      </section>
+      </main>
     </>
   )
 }
