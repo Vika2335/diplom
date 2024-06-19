@@ -167,7 +167,7 @@ function Comment({ postId }) {
           </div>
         </div>
       ))
-    : null
+    : null;
 
   return (
     <div className="newComment">
