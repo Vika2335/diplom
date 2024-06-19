@@ -25,6 +25,7 @@ function Registration() {
   const[show, setshow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [error, setError] = useState('');
 
   const change = (e) => {
     setformdata({...formdata,[e.target.name]:e.target.value});
@@ -32,6 +33,10 @@ function Registration() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (password !== repeatPassword) {
+      setError('Пароли не совпадают');
+      return;
+    }
     try {
       await registration({  email, password, username });
       setformdata({ username: '', email: '', password: '', repeatPassword: '' });
@@ -69,6 +74,7 @@ function Registration() {
                   <input className='password__input' required type={showPassword ? 'text' : 'password'} placeholder="Пароль" value={repeatPassword} name="repeatPassword" onChange={change}/>
                   {showPassword ? <i onClick={() => setShowPassword(false)}>{Eye}</i> : <i onClick={() => setShowPassword(true)}>{EyeSlash}</i>}
                 </div>
+                {error ? ('Пароли не совпадают'): ('')}
                 <div className='registration__button'>
                   <button className="submit-registr" type="submit" name="submit">Зарегистрироваться</button>
                 </div>

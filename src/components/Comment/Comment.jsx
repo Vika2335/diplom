@@ -78,7 +78,7 @@ function Comment({ postId }) {
       await createComment({ postId: id, comment: commentText })
       setComments((prevComments) => [
         ...prevComments,
-        { _id: Date.now(), comment: commentText, createdAt: new Date(), likes: [] },
+        { _id: Date.now(), userID: user.id, comment: commentText, createdAt: new Date(), likes: [] },
       ])
       setCommentText("")
     } catch (error) {
@@ -132,6 +132,7 @@ function Comment({ postId }) {
   const contentComment = comments
     ? comments.map((comment) => (
         <div className="created-comment" key={comment._id}>
+          <Avatar className="comment-avatar" name={comment.authorName} round={true} size="40px" />
           <button className="dropdown" onClick={() => toggleDropdown(comment._id, comment.comment)}>
             <div className="comment-post">
               {comment.comment}

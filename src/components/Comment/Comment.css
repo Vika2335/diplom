@@ -132,3 +132,7 @@ input::placeholder {
 .dropdown-content a {
   display: flex;
 }
+
+.comment-avatar {
+  margin-right: 10px;
+}

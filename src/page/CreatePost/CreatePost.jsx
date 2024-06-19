@@ -49,7 +49,6 @@ function CreatePost() {
                     <input className='input-tag' required type="text" value={tags} placeholder="Теги" name="tags" onChange={change}/>
                   </div>
                 </div>
-                <button className='download'><img src={download} alt='No image'/></button>
                 <div className='data'>
                   <label className='label-text'>Текст:</label>
                   <textarea className='body' minLength="3" rows="10" required type="body" value={body} placeholder="Текст" name="body" onChange={change}></textarea>

@@ -126,7 +126,7 @@ function MainPage() {
   };
   
 
-  if (isLoading) return <h1 className='load'>Loading...</h1>
+  if (isLoading) return <h1 className='load'>Загрузка...</h1>
 
   return (
     <>

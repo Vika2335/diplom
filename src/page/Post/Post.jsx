@@ -6,7 +6,7 @@ import { useLikePostMutation } from "../../redux/likePost";
 import Comment from "../../components/Comment/Comment";
 import { useSelector, useDispatch } from 'react-redux';
 import { FaRegSave } from "react-icons/fa";
-import { updatePost } from "../../redux/postSlice";
+import { setPost, updatePost } from "../../redux/postSlice";
 import comment from "../../image/icons/comment.svg";
 import eye from "../../image/icons/eye.svg";
 import heart from "../../image/icons/heart.svg";
@@ -50,15 +50,16 @@ function Post() {
       setEditedBody(post.body);
       setEditedTags(post.tags);
       setLikedCount(post.likes.length);
+      dispatch(setPost(post));
     }
-  }, [post]);
+  }, [post, dispatch]);
 
   if (isLoading) {
-    return <h1 className='load'>Loading...</h1>;
+    return <h1 className='load'>Загрузка...</h1>;
   }
 
   if (!post) {
-    return <h1 className='load'>Post not found</h1>;
+    return <h1 className='load'>Пост не найден</h1>;
   }
 
   const backButton = () => {

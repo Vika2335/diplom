@@ -41,7 +41,7 @@ export const api = createApi({
     logOut: build.mutation({
       query: ({ refresh }) => ({
         url: 'auth/logout',
-        method: 'PATCH',
+        method: 'DELETE',
         body: {refresh},
         headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}
       })

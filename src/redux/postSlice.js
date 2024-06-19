@@ -11,21 +11,22 @@ const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
+    setPost(state, action) {
+      const data = action.payload;
+      state.header = data.header;
+      state.body = data.body;
+      state.tags = data.tags;
+      state.id = data.id;
+    },
     updatePost(state, action) {
       const data = action.payload;
       state.header = data.header;
       state.body = data.body;
       state.tags = data.tags;
-    },
-    deletePost(state, action) {
-      const data = action.payload;
-      state.header = data.null;
-      state.body = data.null;
-      state.tags = data.null;
     }
   },
 });
 
-export const { updatePost, deletePost } = postSlice.actions;
+export const { updatePost, setPost } = postSlice.actions;
 
 export default postSlice.reducer;

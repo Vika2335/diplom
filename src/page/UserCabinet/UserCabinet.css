@@ -104,3 +104,8 @@
   grid-template-rows: 216px ;
   gap: 25px;
 }
+
+.no-likes-message {
+  font-size: 24px;
+  color: aliceblue;
+}
