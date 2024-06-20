@@ -4,6 +4,10 @@
   font-family: "Montserrat", sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 body {
   height: 100%;
 }

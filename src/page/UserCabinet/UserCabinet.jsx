@@ -77,7 +77,7 @@ function UserCabinet() {
   const contentLikePosts = loading ? (
     <p className='loading-message'>Загрузка...</p>
   ) : likePosts.length > 0 ? (
-    [...likePosts] // Create a shallow copy of the array
+    [...likePosts]
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .slice(0, 2)
       .map((item) => (
@@ -112,7 +112,9 @@ function UserCabinet() {
         </div>
       ))
   ) : (
-    <p className='no-likes-message'>Поставьте лайк на пост, чтобы здесь появились посты!</p>
+    <div className='message'>
+      <p className='no-likes-message'>Поставьте лайк на пост, чтобы здесь появились посты!</p>
+    </div>
   );
 
   return (
