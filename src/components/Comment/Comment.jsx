@@ -175,17 +175,30 @@ function Comment({ postId }) {
         <li className="username">
           <Avatar className="avatar" name={user.username} round={true} size="50px" />
         </li>
-        <form className="comment-form" onSubmit={handleSubmit}>
-          <textarea
-            value={isEditing ? editedCommentText : commentText}
-            onChange={(e) => (isEditing ? setEditedCommentText(e.target.value) : setCommentText(e.target.value))}
-            className="comment-text"
-            placeholder={isEditing ? "Отредактируйте свой комментарий здесь..." : "Оставьте свой комментарий здесь..."}
-          />
-          <button type="submit" className="comment-button">
-            {isEditing ? "Сохранить" : "Отправить"}
-          </button>
-        </form>
+        {user.email ? (
+          <form onSubmit={handleSubmit} className="comment-form">
+            <textarea
+              value={isEditing ? editedCommentText : commentText}
+              onChange={(e) => (isEditing ? setEditedCommentText(e.target.value) : setCommentText(e.target.value))}
+              className="comment-text"
+              placeholder={isEditing ? "Отредактируйте свой комментарий здесь..." : "Оставьте свой комментарий здесь..."}
+            />
+            <button type="submit" className="comment-button">
+              {isEditing ? "Сохранить" : "Отправить"}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleSubmit} className="comment-form">
+            <textarea
+              className="comment-text"
+              placeholder="Войдите, чтобы оставить здесь свой комментарий..."
+              disabled
+            />
+            <button type="submit" className="unknown" disabled>
+              Отправить
+            </button>
+          </form>
+        )}
       </div>
       {isLoading ? <p>Комментарии загружаются...</p> : <div className="comments">{contentComment}</div>}
     </div>
